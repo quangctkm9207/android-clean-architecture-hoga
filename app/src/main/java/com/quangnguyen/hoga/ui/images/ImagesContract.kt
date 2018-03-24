@@ -8,11 +8,13 @@ interface ImagesContract {
 
   interface View {
 
-    fun showTrendingImages(images: List<Image>)
+    fun showImages(images: List<Image>)
 
     fun clearImages()
 
     fun showErrorMessage(errorMsg: String)
+
+    fun startLoadingIndicator()
 
     fun stopLoadingIndicator()
   }
@@ -20,5 +22,7 @@ interface ImagesContract {
   interface Presenter : BasePresenter {
 
     fun loadTrendingImages()
+
+    fun searchImages(keyword: String)
   }
 }

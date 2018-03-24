@@ -22,6 +22,7 @@ class ImageRepositoryImpl(val imageService: ImageService,
 
   override fun searchImage(keyword: String): Single<List<Image>> {
     return imageService.searchImages(token, keyword)
+        .map { it.results }
         .toFlowable()
         .flatMap { Flowable.fromIterable(it) }
         .map { imageMapper.dataToDomain(it) }

@@ -1,6 +1,5 @@
 package com.quangnguyen.hoga.di
 
-import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.quangnguyen.data.api.ApiConfig
@@ -8,29 +7,28 @@ import com.quangnguyen.data.api.ImageService
 import com.quangnguyen.data.mapper.ImageMapperImpl
 import com.quangnguyen.data.repository.ImageRepositoryImpl
 import com.quangnguyen.hoga.domain.interactor.image.LoadTrendingImageUseCase
+import com.quangnguyen.hoga.domain.interactor.image.SearchImageUseCase
 import com.quangnguyen.hoga.util.SchedulerProvider
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.Calendar
-import java.util.GregorianCalendar
 
 
 class Injector {
 
   companion object {
     lateinit var loadTrendingImageUseCase: LoadTrendingImageUseCase
-    lateinit var schedulerProvider: SchedulerProvider
-    lateinit var context: Context
-    fun initialize(context: Context) {
-      this.context = context
+    lateinit var searchImageUseCase: SearchImageUseCase
 
+    lateinit var schedulerProvider: SchedulerProvider
+    fun initialize() {
       val imageService = provideImageService()
       val imageMapper = ImageMapperImpl()
       val imageRepository = ImageRepositoryImpl(imageService, imageMapper)
       loadTrendingImageUseCase = LoadTrendingImageUseCase(imageRepository)
+      searchImageUseCase = SearchImageUseCase(imageRepository)
 
       schedulerProvider = SchedulerProvider()
     }

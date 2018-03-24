@@ -8,6 +8,6 @@ class HogaApplication: Application() {
 
   override fun onCreate() {
     super.onCreate()
-    Injector.initialize(this)
+    Injector.initialize()
   }
 }

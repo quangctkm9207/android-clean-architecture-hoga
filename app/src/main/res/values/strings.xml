@@ -1,3 +1,5 @@
 <resources>
   <string name="app_name">Hoga</string>
+  <string name="search">Search</string>
+  <string name="search_image_hint">Search photos that you love</string>
 </resources>

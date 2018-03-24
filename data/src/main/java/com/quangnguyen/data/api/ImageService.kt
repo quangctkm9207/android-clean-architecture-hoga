@@ -1,6 +1,7 @@
 package com.quangnguyen.data.api
 
 import com.quangnguyen.data.model.ImageModel
+import com.quangnguyen.data.model.SearchResultModel
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -13,5 +14,5 @@ interface ImageService {
 
   @GET("search/photos")
   fun searchImages(@Header(ApiConfig.AUTH_HEADER) token: String, @Query(
-      ApiConfig.QUERY) keyword: String): Single<List<ImageModel>>
+      ApiConfig.QUERY) keyword: String): Single<SearchResultModel>
 }
