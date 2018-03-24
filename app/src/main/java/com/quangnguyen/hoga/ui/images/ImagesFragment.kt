@@ -1,5 +1,6 @@
 package com.quangnguyen.hoga.ui.images
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
@@ -10,10 +11,13 @@ import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.AdapterView.OnItemClickListener
 import android.widget.Toast
 import com.quangnguyen.hoga.R
 import com.quangnguyen.hoga.di.Injector
 import com.quangnguyen.hoga.domain.model.Image
+import com.quangnguyen.hoga.ui.base.RecyclerViewListener
+import com.quangnguyen.hoga.ui.imagedetail.ImageDetailActivity
 import com.quangnguyen.hoga.util.hideKeyboard
 import kotlinx.android.synthetic.main.fragment_images.*
 
@@ -49,6 +53,11 @@ class ImagesFragment : Fragment(), ImagesContract.View {
     val layoutManager = GridLayoutManager(activity, 2)
     imageRecyclerView.layoutManager = layoutManager
     imageRecyclerView.adapter = adapter
+    adapter.setOnItemClickListener(object : RecyclerViewListener.OnItemClickListener {
+      override fun onItemClick(view: View, position: Int) {
+        presenter.loadImageDetail(adapter.getItem(position).id)
+      }
+    })
     refreshLayout.setOnRefreshListener { presenter.loadTrendingImages() }
   }
 
@@ -90,7 +99,7 @@ class ImagesFragment : Fragment(), ImagesContract.View {
     })
 
     searchView.setOnCloseListener {
-      searchView.setQuery("",true)
+      searchView.setQuery("", true)
       presenter.loadTrendingImages()
       false
     }
@@ -114,5 +123,11 @@ class ImagesFragment : Fragment(), ImagesContract.View {
 
   override fun stopLoadingIndicator() {
     refreshLayout.isRefreshing = false
+  }
+
+  override fun showImageDetail(imageId: String) {
+    val intent = Intent(activity, ImageDetailActivity::class.java)
+    intent.putExtra(ImageDetailActivity.EXTRA_IMAGE_ID, imageId)
+    startActivity(intent)
   }
 }

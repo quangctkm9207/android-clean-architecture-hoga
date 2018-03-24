@@ -26,11 +26,13 @@ abstract class BaseRecyclerViewAdapter<VH : RecyclerView.ViewHolder> : RecyclerV
    */
   override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, i: Int) {
     if (itemClickListener != null) {
-      viewHolder.itemView.setOnClickListener { view -> itemClickListener!!.OnItemClick(view, i) }
+      viewHolder.itemView.setOnClickListener { view ->
+        itemClickListener!!.onItemClick(view, i)
+      }
     }
     if (itemLongClickListener != null) {
       viewHolder.itemView.setOnLongClickListener { view ->
-        itemLongClickListener!!.OnItemLongClick(view, i)
+        itemLongClickListener!!.onItemLongClick(view, i)
         true
       }
     }

@@ -6,6 +6,7 @@ import com.quangnguyen.data.api.ApiConfig
 import com.quangnguyen.data.api.ImageService
 import com.quangnguyen.data.mapper.ImageMapperImpl
 import com.quangnguyen.data.repository.ImageRepositoryImpl
+import com.quangnguyen.hoga.domain.interactor.image.GetImageUseCase
 import com.quangnguyen.hoga.domain.interactor.image.LoadTrendingImagesUseCase
 import com.quangnguyen.hoga.domain.interactor.image.SearchImagesUseCase
 import com.quangnguyen.hoga.util.SchedulerProvider
@@ -21,6 +22,7 @@ class Injector {
   companion object {
     lateinit var loadTrendingImagesUseCase: LoadTrendingImagesUseCase
     lateinit var searchImagesUseCase: SearchImagesUseCase
+    lateinit var getImageUsecase: GetImageUseCase
 
     lateinit var schedulerProvider: SchedulerProvider
     fun initialize() {
@@ -29,6 +31,7 @@ class Injector {
       val imageRepository = ImageRepositoryImpl(imageService, imageMapper)
       loadTrendingImagesUseCase = LoadTrendingImagesUseCase(imageRepository)
       searchImagesUseCase = SearchImagesUseCase(imageRepository)
+      getImageUsecase = GetImageUseCase(imageRepository)
 
       schedulerProvider = SchedulerProvider()
     }

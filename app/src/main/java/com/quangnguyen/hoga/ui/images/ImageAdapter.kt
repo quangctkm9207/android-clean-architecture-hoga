@@ -25,6 +25,7 @@ class ImageAdapter(var images: List<Image>) : BaseRecyclerViewAdapter<ImageAdapt
 
   override fun onBindViewHolder(viewHolder: android.support.v7.widget.RecyclerView.ViewHolder,
       i: Int) {
+    super.onBindViewHolder(viewHolder, i)
     val image = images[i]
     val vh = viewHolder as ImageViewHolder
     Glide.with(vh.image).load(image.smallImageUrl).into(vh.image)
@@ -38,6 +39,10 @@ class ImageAdapter(var images: List<Image>) : BaseRecyclerViewAdapter<ImageAdapt
   fun replaceData(images: List<Image>) {
     this.images = images
     notifyDataSetChanged()
+  }
+
+  fun getItem(position: Int): Image {
+    return images[position]
   }
 
   fun getData(): List<Image> {

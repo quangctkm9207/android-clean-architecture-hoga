@@ -5,12 +5,12 @@ import com.quangnguyen.hoga.domain.interactor.image.SearchImagesUseCase
 import com.quangnguyen.hoga.util.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
 
-class ImagesPresenter(val view: ImagesContract.View,
-    val loadTrendingImagesUseCase: LoadTrendingImagesUseCase,
-    val searchImagesUseCase: SearchImagesUseCase,
-    val schedulerProvider: SchedulerProvider) : ImagesContract.Presenter {
+class ImagesPresenter(private val view: ImagesContract.View,
+    private val loadTrendingImagesUseCase: LoadTrendingImagesUseCase,
+    private val searchImagesUseCase: SearchImagesUseCase,
+    private val schedulerProvider: SchedulerProvider) : ImagesContract.Presenter {
 
-  val compositeDisposable = CompositeDisposable()
+  private val compositeDisposable = CompositeDisposable()
 
   override fun attach() {
     loadTrendingImages()
@@ -54,5 +54,9 @@ class ImagesPresenter(val view: ImagesContract.View,
         })
 
     compositeDisposable.add(disposable)
+  }
+
+  override fun loadImageDetail(imageId: String) {
+    view.showImageDetail(imageId)
   }
 }

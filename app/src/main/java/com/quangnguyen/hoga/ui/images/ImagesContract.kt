@@ -17,6 +17,8 @@ interface ImagesContract {
     fun startLoadingIndicator()
 
     fun stopLoadingIndicator()
+
+    fun showImageDetail(imageId: String)
   }
 
   interface Presenter : BasePresenter {
@@ -24,5 +26,7 @@ interface ImagesContract {
     fun loadTrendingImages()
 
     fun searchImages(keyword: String)
+
+    fun loadImageDetail(imageId: String)
   }
 }
