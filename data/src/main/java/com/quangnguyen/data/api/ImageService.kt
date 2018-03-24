@@ -10,9 +10,15 @@ import retrofit2.http.Query
 
 interface ImageService {
   @GET("photos")
-  fun loadTrendingImages(@Header(ApiConfig.AUTH_HEADER) token: String): Single<List<ImageModel>>
+  fun loadTrendingImages(@Header(ApiConfig.AUTH_HEADER) token: String,
+      @Query(ApiConfig.PAGE) pageNum: Int,
+      @Query(ApiConfig.PER_PAGE) pictureNumPerPage: Int,
+      @Query(ApiConfig.ORDER_BY) orderBy: String): Single<List<ImageModel>>
 
   @GET("search/photos")
-  fun searchImages(@Header(ApiConfig.AUTH_HEADER) token: String, @Query(
-      ApiConfig.QUERY) keyword: String): Single<SearchResultModel>
+  fun searchImages(@Header(ApiConfig.AUTH_HEADER) token: String,
+      @Query(ApiConfig.QUERY) keyword: String,
+      @Query(ApiConfig.PAGE) pageNum: Int,
+      @Query(ApiConfig.PER_PAGE) pictureNumPerPage: Int,
+      @Query(ApiConfig.ORDER_BY) orderBy: String): Single<SearchResultModel>
 }
