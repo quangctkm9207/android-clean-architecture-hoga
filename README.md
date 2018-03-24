@@ -1,11 +1,10 @@
 # Hoga
 A mobile image box allows you to search and download free and beautiful pictures which you definitely love. 
-It runs on both Android and iOS.  
 
 Hoga = Hộp + Gazo(画像) = Image box 
 App name (Hoga) is a combination of Vietnamese word("Hộp" - Box) and Japanese word("Gazo-画像" - Image).
 
-## Status: Work in Progress
+## Status: WORK IN PROGRESS
 
 ## Features
 - Users can search pictures from various free image services
