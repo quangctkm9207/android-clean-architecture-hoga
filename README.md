@@ -6,12 +6,12 @@ Hoga = Hộp(Vietnamese) + Gazo-画像 (Japanese)
 ## Status: WORK IN PROGRESS
 
 ## Target Audience
-* For beautiful photo lover:  
+* *For beautiful photo lover*  
 Build and run this app to get amazing images into your pocket. 
 
-* For technical explorer:  
-This project is built on **Clean Architecture* using Kotlin. 
-Besides, there are several technical stuffs such as reactive programming and dependence injection you might be interested in.
+* *For technical explorer*  
+This project is built on **Clean Architecture**. 
+Besides, there are several technical stuffs such as Kotlin, reactive programming and dependence injection, or testing that you might be interested in.
 
 ## Features
 - Users can search pictures from various free image services
