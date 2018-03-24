@@ -3,8 +3,6 @@ package com.quangnguyen.hoga.ui.images
 import com.quangnguyen.hoga.domain.interactor.image.LoadTrendingImageUseCase
 import com.quangnguyen.hoga.util.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
-
 
 class ImagesPresenter(val view: ImagesContract.View,
     val loadTrendingImageUseCase: LoadTrendingImageUseCase,
@@ -17,7 +15,7 @@ class ImagesPresenter(val view: ImagesContract.View,
   }
 
   override fun detach() {
-
+    compositeDisposable.clear()
   }
 
   override fun loadTrendingImages() {
@@ -25,8 +23,10 @@ class ImagesPresenter(val view: ImagesContract.View,
         .subscribeOn(schedulerProvider.ioScheduler)
         .observeOn(schedulerProvider.uiScheduler)
         .subscribe({ images ->
+          view.stopLoadingIndicator()
           view.showTrendingImages(images)
         }, { error ->
+          view.stopLoadingIndicator()
           view.showErrorMessage(error.localizedMessage)
         })
 

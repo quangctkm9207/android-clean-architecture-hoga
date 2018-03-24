@@ -10,7 +10,11 @@ interface ImagesContract {
 
     fun showTrendingImages(images: List<Image>)
 
+    fun clearImages()
+
     fun showErrorMessage(errorMsg: String)
+
+    fun stopLoadingIndicator()
   }
 
   interface Presenter : BasePresenter {

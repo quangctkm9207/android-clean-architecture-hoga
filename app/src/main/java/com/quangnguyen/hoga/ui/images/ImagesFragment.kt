@@ -38,6 +38,7 @@ class ImagesFragment : Fragment(), ImagesContract.View {
     val layoutManager = GridLayoutManager(activity, 2)
     imageRecyclerView.layoutManager = layoutManager
     imageRecyclerView.adapter = adapter
+    refreshLayout.setOnRefreshListener { presenter.loadTrendingImages() }
   }
 
   override fun onResume() {
@@ -54,7 +55,15 @@ class ImagesFragment : Fragment(), ImagesContract.View {
     adapter.replaceData(images)
   }
 
+  override fun clearImages() {
+    adapter.clearData()
+  }
+
   override fun showErrorMessage(errorMsg: String) {
     Toast.makeText(activity, errorMsg, Toast.LENGTH_SHORT).show()
+  }
+
+  override fun stopLoadingIndicator() {
+    refreshLayout.isRefreshing = false
   }
 }
