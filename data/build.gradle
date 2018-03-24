@@ -1,0 +1,50 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+  compileSdkVersion rootProject.compileSdkVersion
+
+  defaultConfig {
+    minSdkVersion rootProject.minSdkVersion
+    targetSdkVersion rootProject.targetSdkVersion
+    versionCode 1
+    versionName "1.0"
+
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  }
+
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+}
+
+dependencies {
+  implementation project(":domain")
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+
+  implementation "com.android.support:appcompat-v7:$rootProject.supportVersion"
+  // Room
+  api "android.arch.persistence.room:runtime:$rootProject.archVersion"
+  annotationProcessor "android.arch.persistence.room:compiler:$rootProject.archVersion"
+  api "android.arch.persistence.room:rxjava2:$rootProject.archVersion"
+  //Networking
+  api "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+  api "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
+  api "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofitVersion"
+  api "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttpVersion"
+  //Reactive Programming
+  implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxJavaVersion"
+  implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxAndroidVersion"
+  // Local Unit Test
+  testImplementation "junit:junit:$rootProject.junitVersion"
+  testImplementation "org.mockito:mockito-core:$rootProject.mockitoVersion"
+  testImplementation "org.hamcrest:hamcrest-all:$rootProject.hamcrestVersion"
+}

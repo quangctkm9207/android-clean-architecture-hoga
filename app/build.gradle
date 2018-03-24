@@ -1,0 +1,63 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+  compileSdkVersion rootProject.compileSdkVersion
+  defaultConfig {
+    applicationId "com.quangnguyen.hoga"
+    minSdkVersion rootProject.minSdkVersion
+    targetSdkVersion rootProject.targetSdkVersion
+    versionCode 1
+    versionName "1.0.0"
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  }
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+}
+
+dependencies {
+  compile project(':domain')
+  compile project(':data')
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+
+  implementation "com.android.support:appcompat-v7:$rootProject.supportVersion"
+  implementation "com.android.support:design:$rootProject.supportVersion"
+  implementation "com.android.support:recyclerview-v7:$rootProject.supportVersion"
+  implementation "com.android.support:cardview-v7:$rootProject.supportVersion"
+  implementation "com.android.support.constraint:constraint-layout:$rootProject.constraintLayoutVersion"
+
+  // Timber
+  implementation "com.jakewharton.timber:timber:$rootProject.timberVersion"
+
+  // ButterKnife
+  implementation "com.jakewharton:butterknife:$rootProject.butterKnifeVersion"
+  implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+  annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterKnifeVersion"
+
+  // Glide
+  implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
+  // RxJava
+  implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxJavaVersion"
+  implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxAndroidVersion"
+
+  // Local Unit Test
+  testImplementation "junit:junit:$rootProject.junitVersion"
+  testImplementation "org.mockito:mockito-core:$rootProject.mockitoVersion"
+  testImplementation "org.hamcrest:hamcrest-all:$rootProject.hamcrestVersion"
+
+  // UI Test
+  androidTestImplementation "com.android.support.test:runner:$rootProject.runnerVersion"
+  androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.espressoVersion"
+}
