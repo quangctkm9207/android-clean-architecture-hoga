@@ -5,10 +5,10 @@ import com.quangnguyen.hoga.domain.model.Image
 import com.quangnguyen.hoga.domain.repository.ImageRepository
 import io.reactivex.Single
 
-class SearchImageUseCase(
+class SearchImagesUseCase(
     val imageRepository: ImageRepository) : SingleUseCaseWithParam<String, List<Image>> {
 
   override fun execute(param: String): Single<List<Image>> {
-    return imageRepository.searchImage(param)
+    return imageRepository.searchImages(param)
   }
 }

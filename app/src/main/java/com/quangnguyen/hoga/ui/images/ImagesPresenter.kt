@@ -1,13 +1,13 @@
 package com.quangnguyen.hoga.ui.images
 
-import com.quangnguyen.hoga.domain.interactor.image.LoadTrendingImageUseCase
-import com.quangnguyen.hoga.domain.interactor.image.SearchImageUseCase
+import com.quangnguyen.hoga.domain.interactor.image.LoadTrendingImagesUseCase
+import com.quangnguyen.hoga.domain.interactor.image.SearchImagesUseCase
 import com.quangnguyen.hoga.util.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
 
 class ImagesPresenter(val view: ImagesContract.View,
-    val loadTrendingImageUseCase: LoadTrendingImageUseCase,
-    val searchImageUseCase: SearchImageUseCase,
+    val loadTrendingImagesUseCase: LoadTrendingImagesUseCase,
+    val searchImagesUseCase: SearchImagesUseCase,
     val schedulerProvider: SchedulerProvider) : ImagesContract.Presenter {
 
   val compositeDisposable = CompositeDisposable()
@@ -24,7 +24,7 @@ class ImagesPresenter(val view: ImagesContract.View,
     view.clearImages()
     view.startLoadingIndicator()
 
-    val disposable = loadTrendingImageUseCase.execute()
+    val disposable = loadTrendingImagesUseCase.execute()
         .subscribeOn(schedulerProvider.ioScheduler)
         .observeOn(schedulerProvider.uiScheduler)
         .subscribe({ images ->
@@ -42,7 +42,7 @@ class ImagesPresenter(val view: ImagesContract.View,
     view.clearImages()
     view.startLoadingIndicator()
 
-    val disposable = searchImageUseCase.execute(keyword)
+    val disposable = searchImagesUseCase.execute(keyword)
         .subscribeOn(schedulerProvider.ioScheduler)
         .observeOn(schedulerProvider.uiScheduler)
         .subscribe({ images ->

@@ -5,9 +5,9 @@ import com.quangnguyen.hoga.domain.model.Image
 import com.quangnguyen.hoga.domain.repository.ImageRepository
 import io.reactivex.Single
 
-class LoadTrendingImageUseCase(val imageRepository: ImageRepository) : SingleUseCase<List<Image>> {
+class LoadTrendingImagesUseCase(val imageRepository: ImageRepository) : SingleUseCase<List<Image>> {
 
   override fun execute(): Single<List<Image>> {
-    return imageRepository.loadTrendingImage()
+    return imageRepository.loadTrendingImages()
   }
 }

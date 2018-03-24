@@ -13,7 +13,7 @@ class ImageRepositoryImpl(val imageService: ImageService,
     val imageMapper: ImageMapper) : ImageRepository {
   val token = BuildConfig.UNSPLASH_TOKEN
 
-  override fun loadTrendingImage(): Single<List<Image>> {
+  override fun loadTrendingImages(): Single<List<Image>> {
     return imageService.loadTrendingImages(token, ApiConfig.DEFAULT_PAGE,
         ApiConfig.DEFAULT_PER_PAGE, ApiConfig.DEFAULT_ORDER_BY)
         .toFlowable()
@@ -22,7 +22,7 @@ class ImageRepositoryImpl(val imageService: ImageService,
         .toList()
   }
 
-  override fun searchImage(keyword: String): Single<List<Image>> {
+  override fun searchImages(keyword: String): Single<List<Image>> {
     return imageService.searchImages(token, keyword, ApiConfig.DEFAULT_PAGE,
         ApiConfig.DEFAULT_PER_PAGE, ApiConfig.DEFAULT_ORDER_BY)
         .map { it.results }

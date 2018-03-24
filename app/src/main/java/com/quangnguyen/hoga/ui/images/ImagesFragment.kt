@@ -10,10 +10,8 @@ import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.SearchView.OnCloseListener
 import android.widget.Toast
 import com.quangnguyen.hoga.R
-import com.quangnguyen.hoga.R.id.refreshLayout
 import com.quangnguyen.hoga.di.Injector
 import com.quangnguyen.hoga.domain.model.Image
 import com.quangnguyen.hoga.util.hideKeyboard
@@ -42,8 +40,8 @@ class ImagesFragment : Fragment(), ImagesContract.View {
   }
 
   private fun initPresenter() {
-    presenter = ImagesPresenter(this, Injector.loadTrendingImageUseCase,
-        Injector.searchImageUseCase, Injector.schedulerProvider)
+    presenter = ImagesPresenter(this, Injector.loadTrendingImagesUseCase,
+        Injector.searchImagesUseCase, Injector.schedulerProvider)
   }
 
   private fun setupViews() {

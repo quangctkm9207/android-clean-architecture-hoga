@@ -5,7 +5,7 @@ import io.reactivex.Single
 
 interface ImageRepository {
 
-  fun loadTrendingImage(): Single<List<Image>>
+  fun loadTrendingImages(): Single<List<Image>>
 
-  fun searchImage(keyword: String): Single<List<Image>>
+  fun searchImages(keyword: String): Single<List<Image>>
 }
