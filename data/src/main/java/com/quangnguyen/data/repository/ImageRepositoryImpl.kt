@@ -9,9 +9,11 @@ import com.quangnguyen.hoga.domain.repository.ImageRepository
 import io.reactivex.Flowable
 import io.reactivex.Single
 
-class ImageRepositoryImpl(val imageService: ImageService,
-    val imageMapper: ImageMapper) : ImageRepository {
-  val token = BuildConfig.UNSPLASH_TOKEN
+class ImageRepositoryImpl(private val imageService: ImageService,
+    private val imageMapper: ImageMapper) : ImageRepository {
+  private val token = BuildConfig.UNSPLASH_TOKEN
+
+  private val caches = HashMap<String, Image>()
 
   override fun loadTrendingImages(): Single<List<Image>> {
     return imageService.loadTrendingImages(token, ApiConfig.DEFAULT_PAGE,
@@ -19,6 +21,7 @@ class ImageRepositoryImpl(val imageService: ImageService,
         .toFlowable()
         .flatMap { Flowable.fromIterable(it) }
         .map { imageMapper.dataToDomain(it) }
+        .doOnNext{ caches[it.id] = it }
         .toList()
   }
 
@@ -29,6 +32,15 @@ class ImageRepositoryImpl(val imageService: ImageService,
         .toFlowable()
         .flatMap { Flowable.fromIterable(it) }
         .map { imageMapper.dataToDomain(it) }
+        .doOnNext{ caches[it.id] = it }
         .toList()
+  }
+
+  override fun getImage(imageId: String): Single<Image> {
+    return if (caches.containsKey(imageId)) {
+      Single.just(caches[imageId])
+    } else {
+      Single.error(NoSuchElementException())
+    }
   }
 }
