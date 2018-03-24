@@ -11,6 +11,7 @@ android {
     versionName "1.0"
 
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    buildConfigField "String", "UNSPLASH_TOKEN", "\"" + getUnsplashToken() + "\""
   }
 
   buildTypes {
@@ -47,4 +48,10 @@ dependencies {
   testImplementation "junit:junit:$rootProject.junitVersion"
   testImplementation "org.mockito:mockito-core:$rootProject.mockitoVersion"
   testImplementation "org.hamcrest:hamcrest-all:$rootProject.hamcrestVersion"
+}
+
+def getUnsplashToken() {
+  Properties properties = new Properties()
+  properties.load(project.rootProject.file('local.properties').newDataInputStream())
+  return properties.getProperty("unsplashToken")
 }
