@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.quangnguyen.hoga.R
 import com.quangnguyen.hoga.domain.model.Image
@@ -27,6 +28,7 @@ class ImageAdapter(var images: List<Image>) : BaseRecyclerViewAdapter<ImageAdapt
     val image = images[i]
     val vh = viewHolder as ImageViewHolder
     Glide.with(vh.image).load(image.smallImageUrl).into(vh.image)
+    vh.authorText.text = image.authorName
   }
 
   override fun getItemCount(): Int {
@@ -50,9 +52,11 @@ class ImageAdapter(var images: List<Image>) : BaseRecyclerViewAdapter<ImageAdapt
   class ImageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     var image: ImageView
+    var authorText: TextView
 
     init {
       image = view.findViewById(R.id.image)
+      authorText = view.findViewById(R.id.text_author)
     }
   }
 }
