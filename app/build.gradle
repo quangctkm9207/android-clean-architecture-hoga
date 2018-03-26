@@ -1,8 +1,7 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
+apply from: 'https://raw.githubusercontent.com/mcrafts/dot-gradles/master/test-report.gradle'
 
 android {
   compileSdkVersion rootProject.compileSdkVersion
@@ -28,8 +27,8 @@ android {
 }
 
 dependencies {
-  compile project(':domain')
-  compile project(':data')
+  implementation project(':domain')
+  implementation project(':data')
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 
   implementation "com.android.support:appcompat-v7:$rootProject.supportVersion"
