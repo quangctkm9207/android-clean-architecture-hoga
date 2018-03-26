@@ -11,32 +11,33 @@ import io.reactivex.observers.TestObserver
 import org.junit.Before
 import org.junit.Test
 
-class SearchImagesUseCaseTest {
+class GetImageUseCaseTest {
 
   private lateinit var imageRepository: ImageRepository
-  private lateinit var searchImagesUseCase: SearchImagesUseCase
+  private lateinit var getImageUseCase: GetImageUseCase
 
-  private lateinit var testObserver: TestObserver<List<Image>>
+  private lateinit var testObserver: TestObserver<Image>
 
   @Before
   fun setup() {
     imageRepository = mock()
-    searchImagesUseCase = SearchImagesUseCase(imageRepository)
+    getImageUseCase = GetImageUseCase(imageRepository)
+
     testObserver = TestObserver()
   }
 
   @Test
-  fun shouldReturnImagesIfTheyAreAvailable() {
-    val keyword = "orange"
+  fun shouldReturnImageWithCorrespondingIdIfItIsAvailable() {
+    val imageId = "id1"
+    val image = Image(imageId, "smallImageUrl", "downloadUrl", "authorName")
+    given(imageRepository.getImage(imageId)).willReturn(Single.just(image))
 
-    given(imageRepository.searchImages(keyword)).willReturn(Single.just(TESTING_CARTRIDGES))
+    getImageUseCase.execute(imageId).subscribe(testObserver)
 
-    searchImagesUseCase.execute(keyword).subscribe(testObserver)
-
-    then(imageRepository).should(times(1)).searchImages(keyword)
+    then(imageRepository).should(times(1)).getImage(imageId)
     then(imageRepository).shouldHaveNoMoreInteractions()
 
+    testObserver.assertValue(image)
     testObserver.assertComplete()
-    testObserver.assertValue(TESTING_CARTRIDGES)
   }
 }
