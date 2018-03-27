@@ -3,13 +3,16 @@ package com.quangnguyen.data.repository
 import com.quangnguyen.data.BuildConfig
 import com.quangnguyen.data.api.ApiConfig
 import com.quangnguyen.data.api.ImageService
+import com.quangnguyen.data.database.ImageDownloader
 import com.quangnguyen.data.mapper.ImageMapper
 import com.quangnguyen.hoga.domain.model.Image
 import com.quangnguyen.hoga.domain.repository.ImageRepository
+import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
 
 class ImageRepositoryImpl(private val imageService: ImageService,
+    private val imageDownloader: ImageDownloader,
     private val imageMapper: ImageMapper) : ImageRepository {
   private val token = BuildConfig.UNSPLASH_TOKEN
 
@@ -21,7 +24,7 @@ class ImageRepositoryImpl(private val imageService: ImageService,
         .toFlowable()
         .flatMap { Flowable.fromIterable(it) }
         .map { imageMapper.dataToDomain(it) }
-        .doOnNext{ caches[it.id] = it }
+        .doOnNext { caches[it.id] = it }
         .toList()
   }
 
@@ -32,7 +35,7 @@ class ImageRepositoryImpl(private val imageService: ImageService,
         .toFlowable()
         .flatMap { Flowable.fromIterable(it) }
         .map { imageMapper.dataToDomain(it) }
-        .doOnNext{ caches[it.id] = it }
+        .doOnNext { caches[it.id] = it }
         .toList()
   }
 
@@ -42,5 +45,10 @@ class ImageRepositoryImpl(private val imageService: ImageService,
     } else {
       Single.error(NoSuchElementException())
     }
+  }
+
+  override fun downloadImage(image: Image): Completable {
+    val imageFileName = "${image.id}_${image.authorName.replace(" ", "")}"
+    return imageDownloader.download(image.downloadUrl, imageFileName)
   }
 }

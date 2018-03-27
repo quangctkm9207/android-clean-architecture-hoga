@@ -9,6 +9,6 @@ class SearchImagesUseCase(
     private val imageRepository: ImageRepository) : SingleUseCaseWithParam<String, List<Image>> {
 
   override fun execute(param: String): Single<List<Image>> {
-    return imageRepository.searchImages(param)
+    return imageRepository.searchImages(keyword = param)
   }
 }

@@ -9,11 +9,13 @@ interface ImageDetailContract {
 
     fun showImage(image: Image)
 
-    fun showErrorMessage(errorMsg: String)
+    fun showMessage(message: String)
   }
 
   interface Presenter: BasePresenter {
 
     fun loadImage(id: String)
+
+    fun downloadImage()
   }
 }
