@@ -11,7 +11,6 @@ import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.AdapterView.OnItemClickListener
 import android.widget.Toast
 import com.quangnguyen.hoga.R
 import com.quangnguyen.hoga.di.Injector
@@ -70,7 +69,6 @@ class ImagesFragment : Fragment(), ImagesContract.View {
     super.onPause()
     presenter.detach()
   }
-
 
   override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
     if (inflater != null && menu != null) {

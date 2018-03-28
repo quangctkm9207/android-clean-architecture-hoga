@@ -15,9 +15,21 @@ import java.net.URL
  */
 class ImageDownloader {
 
-  val separator = File.separator
-  val imageFolderName = "Hoga${separator}Images"
-  val imageFolderPath = "${Environment.getExternalStorageDirectory()}$separator$imageFolderName"
+  private val separator = File.separator
+  private val imageFolderName = "Hoga"
+  private val externalDirPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+  private val imageFolderPath = "${externalDirPath.path}$separator$imageFolderName"
+
+  init {
+    createFolderIfNotExist()
+  }
+
+  private fun createFolderIfNotExist() {
+    val imageFolder = File(imageFolderPath)
+    if (!imageFolder.exists()) {
+      imageFolder.mkdir()
+    }
+  }
 
   fun download(downloadUrl: String, imageFileName: String): Completable {
     return Completable.create({
@@ -37,7 +49,8 @@ class ImageDownloader {
     val bytes = ByteArrayOutputStream()
     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
 
-    val file = File(getImageFilePath(imageFileName))
+    val filePath = getImageFilePath(imageFileName)
+    val file = File(filePath)
     file.createNewFile()
     val fileOutput = FileOutputStream(file)
     fileOutput.write(bytes.toByteArray())
@@ -46,6 +59,7 @@ class ImageDownloader {
   }
 
   private fun getImageFilePath(imageFileName: String): String {
-    return "$imageFolderPath$separator$imageFileName"
+    val imageExtension = ".jpg"
+    return "$imageFolderPath$separator$imageFileName$imageExtension"
   }
 }
