@@ -10,6 +10,10 @@ interface ImageDetailContract {
     fun showImage(image: Image)
 
     fun showMessage(message: String)
+
+    fun showDowloadingIndicator()
+
+    fun hideDownloadingIndicator()
   }
 
   interface Presenter: BasePresenter {

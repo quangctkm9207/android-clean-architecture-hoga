@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.quangnguyen.hoga.R
@@ -13,6 +14,7 @@ import com.quangnguyen.hoga.ui.imagedetail.ImageDetailContract.Presenter
 import com.quangnguyen.hoga.util.isStoragePermissionGranted
 import kotlinx.android.synthetic.main.activity_image_detail.authorText
 import kotlinx.android.synthetic.main.activity_image_detail.image
+import kotlinx.android.synthetic.main.activity_image_detail.progressBar
 
 
 class ImageDetailActivity : AppCompatActivity(), ImageDetailContract.View {
@@ -78,5 +80,13 @@ class ImageDetailActivity : AppCompatActivity(), ImageDetailContract.View {
 
   override fun showMessage(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+  }
+
+  override fun showDowloadingIndicator() {
+    progressBar.visibility = View.VISIBLE
+  }
+
+  override fun hideDownloadingIndicator() {
+    progressBar.visibility = View.GONE
   }
 }

@@ -43,12 +43,17 @@ class ImageDetailPresenter(private val view: ImageDetailContract.View,
     if (image == null) {
       return
     }
+
+    view.showDowloadingIndicator()
+
     val disposable = downloadImageUsecase.execute(image!!)
         .subscribeOn(schedulerProvider.ioScheduler)
         .observeOn(schedulerProvider.uiScheduler)
         .subscribe({
+          view.hideDownloadingIndicator()
           view.showMessage("Download complete!")
         }, {
+          view.hideDownloadingIndicator()
           view.showMessage(it.localizedMessage)
         })
 

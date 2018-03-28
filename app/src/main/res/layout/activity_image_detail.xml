@@ -5,12 +5,28 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
+
+  <ProgressBar
+      android:id="@+id/progressBar"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      style="?android:attr/progressBarStyleHorizontal"
+      android:indeterminate="true"
+      app:layout_constraintTop_toTopOf="parent"
+      android:visibility="gone"
+      />
+
   <ImageView
       android:id="@+id/image"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
       android:background="@color/black"
+      app:layout_constraintTop_toBottomOf="@+id/progressBar"
       />
+
   <TextView
       android:id="@+id/authorText"
       android:layout_width="0dp"
