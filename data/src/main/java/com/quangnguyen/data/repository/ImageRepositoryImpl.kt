@@ -3,6 +3,7 @@ package com.quangnguyen.data.repository
 import com.quangnguyen.data.BuildConfig
 import com.quangnguyen.data.api.ApiConfig
 import com.quangnguyen.data.api.ImageService
+import com.quangnguyen.data.database.ImageDao
 import com.quangnguyen.data.database.ImageDownloader
 import com.quangnguyen.data.mapper.ImageMapper
 import com.quangnguyen.hoga.domain.model.Image
@@ -12,6 +13,7 @@ import io.reactivex.Flowable
 import io.reactivex.Single
 
 class ImageRepositoryImpl(private val imageService: ImageService,
+    private val imageDao: ImageDao,
     private val imageDownloader: ImageDownloader,
     private val imageMapper: ImageMapper) : ImageRepository {
   private val token = BuildConfig.UNSPLASH_TOKEN
@@ -34,8 +36,11 @@ class ImageRepositoryImpl(private val imageService: ImageService,
         .map { it.results }
         .toFlowable()
         .flatMap { Flowable.fromIterable(it) }
+        .doOnNext {
+          imageDao.insertImage(it)
+          caches[it.id] = imageMapper.dataToDomain(it)
+        }
         .map { imageMapper.dataToDomain(it) }
-        .doOnNext { caches[it.id] = it }
         .toList()
   }
 

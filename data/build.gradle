@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 apply from: 'https://raw.githubusercontent.com/mcrafts/dot-gradles/master/test-report.gradle'
 
 android {
@@ -33,18 +34,22 @@ dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 
   implementation "com.android.support:appcompat-v7:$rootProject.supportVersion"
+
   // Room
   api "android.arch.persistence.room:runtime:$rootProject.archVersion"
-  annotationProcessor "android.arch.persistence.room:compiler:$rootProject.archVersion"
+  kapt "android.arch.persistence.room:compiler:$rootProject.archVersion"
   api "android.arch.persistence.room:rxjava2:$rootProject.archVersion"
+
   //Networking
   api "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
   api "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
   api "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofitVersion"
   api "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttpVersion"
+
   //Reactive Programming
   implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxJavaVersion"
   implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxAndroidVersion"
+
   // Local Unit Test
   testImplementation "junit:junit:$rootProject.junitVersion"
   testImplementation "org.mockito:mockito-core:$rootProject.mockitoVersion"

@@ -9,6 +9,7 @@ import retrofit2.http.Query
 
 
 interface ImageService {
+
   @GET("photos")
   fun loadTrendingImages(@Header(ApiConfig.AUTH_HEADER) token: String,
       @Query(ApiConfig.PAGE) pageNum: Int,

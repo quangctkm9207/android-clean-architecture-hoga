@@ -1,6 +1,8 @@
 package com.quangnguyen.hoga.di
 
+import android.app.Application
 import com.quangnguyen.data.api.ServiceGenerator
+import com.quangnguyen.data.database.DatabaseGenerator
 import com.quangnguyen.data.database.ImageDownloader
 import com.quangnguyen.data.mapper.ImageMapperImpl
 import com.quangnguyen.data.repository.ImageRepositoryImpl
@@ -20,11 +22,13 @@ class Injector {
 
     lateinit var schedulerProvider: SchedulerProvider
 
-    fun initialize() {
+    fun initialize(app: Application) {
       val imageService = ServiceGenerator.provideImageService()
+      val imageDao = DatabaseGenerator.getImageDao(app)
       val imageMapper = ImageMapperImpl()
       val imageDownloader = ImageDownloader()
-      val imageRepository = ImageRepositoryImpl(imageService, imageDownloader, imageMapper)
+      val imageRepository = ImageRepositoryImpl(imageService, imageDao, imageDownloader,
+          imageMapper)
       loadTrendingImagesUseCase = LoadTrendingImagesUseCase(imageRepository)
       searchImagesUseCase = SearchImagesUseCase(imageRepository)
       getImageUseCase = GetImageUseCase(imageRepository)
