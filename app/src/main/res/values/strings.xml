@@ -6,4 +6,5 @@
   <string name="download">Download</string>
   <string name="explore">Explore</string>
   <string name="collection">Collection</string>
+  <string name="downloading">Downloading…</string>
 </resources>
