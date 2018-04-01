@@ -18,8 +18,6 @@ class ImageRepositoryImpl(private val imageService: ImageService,
     private val imageMapper: ImageMapper) : ImageRepository {
   private val token = BuildConfig.UNSPLASH_TOKEN
 
-  private val caches = HashMap<String, Image>()
-
   override fun loadTrendingImages(): Single<List<Image>> {
     return imageService.loadTrendingImages(token, ApiConfig.DEFAULT_PAGE,
         ApiConfig.DEFAULT_PER_PAGE, ApiConfig.DEFAULT_ORDER_BY)
@@ -27,10 +25,8 @@ class ImageRepositoryImpl(private val imageService: ImageService,
         .flatMap { Flowable.fromIterable(it) }
         .doOnNext {
           imageDao.insertImage(it)
-          caches[it.id] = imageMapper.dataToDomain(it)
         }
         .map { imageMapper.dataToDomain(it) }
-        .doOnNext { caches[it.id] = it }
         .toList()
   }
 
@@ -42,32 +38,31 @@ class ImageRepositoryImpl(private val imageService: ImageService,
         .flatMap { Flowable.fromIterable(it) }
         .doOnNext {
           imageDao.insertImage(it)
-          caches[it.id] = imageMapper.dataToDomain(it)
         }
         .map { imageMapper.dataToDomain(it) }
         .toList()
   }
 
   override fun getImage(imageId: String): Single<Image> {
-    return if (caches.containsKey(imageId)) {
-      Single.just(caches[imageId])
-    } else {
-      imageDao.getImage(imageId)
-          .map { imageMapper.dataToDomain(it) }
-    }
+    return imageDao.getImage(imageId)
+        .map { imageMapper.dataToDomain(it) }
   }
 
   override fun downloadImage(image: Image): Completable {
-    val imageFileName = "${image.id}_${image.authorName.replace(" ", "")}"
-
-    return imageDownloader.download(image.downloadUrl, imageFileName)
-        .toSingle { imageDao.getImage(image.id) }
-        .doOnSuccess {
-          val imageModel = it.blockingGet()
-          imageModel.downloadedFilePath = imageDownloader.getImageFilePath(imageFileName)
-          imageDao.updateImage(imageModel)
-        }
-        .toCompletable()
+    return if (image.downloadedFilePath != null) {
+      Completable.error(
+          android.support.v4.os.OperationCanceledException("Image has been downloaded already."))
+    } else {
+      val imageFileName = "${image.id}_${image.authorName.replace(" ", "")}"
+      imageDownloader.download(image.downloadUrl, imageFileName)
+          .toSingle { imageDao.getImage(image.id) }
+          .doOnSuccess {
+            val imageModel = it.blockingGet()
+            imageModel.downloadedFilePath = imageDownloader.getImageFilePath(imageFileName)
+            imageDao.updateImage(imageModel)
+          }
+          .toCompletable()
+    }
   }
 
   override fun loadDownloadedImages(): Single<List<Image>> {
