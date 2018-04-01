@@ -20,15 +20,9 @@ class ImageDownloader {
   private val externalDirPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
   private val imageFolderPath = "${externalDirPath.path}$separator$imageFolderName"
 
-  init {
-    createFolderIfNotExist()
-  }
-
-  private fun createFolderIfNotExist() {
-    val imageFolder = File(imageFolderPath)
-    if (!imageFolder.exists()) {
-      imageFolder.mkdir()
-    }
+  fun getImageFilePath(imageFileName: String): String {
+    val imageExtension = ".jpg"
+    return "$imageFolderPath$separator$imageFileName$imageExtension"
   }
 
   fun download(downloadUrl: String, imageFileName: String): Completable {
@@ -46,6 +40,8 @@ class ImageDownloader {
   }
 
   private fun saveBitmapToFile(bitmap: Bitmap, imageFileName: String) {
+    createFolderIfNotExist()
+
     val bytes = ByteArrayOutputStream()
     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
 
@@ -58,8 +54,10 @@ class ImageDownloader {
     fileOutput.close()
   }
 
-  fun getImageFilePath(imageFileName: String): String {
-    val imageExtension = ".jpg"
-    return "$imageFolderPath$separator$imageFileName$imageExtension"
+  private fun createFolderIfNotExist() {
+    val imageFolder = File(imageFolderPath)
+    if (!imageFolder.exists()) {
+      imageFolder.mkdir()
+    }
   }
 }
