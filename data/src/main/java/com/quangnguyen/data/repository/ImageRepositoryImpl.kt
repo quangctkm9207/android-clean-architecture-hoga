@@ -25,6 +25,10 @@ class ImageRepositoryImpl(private val imageService: ImageService,
         ApiConfig.DEFAULT_PER_PAGE, ApiConfig.DEFAULT_ORDER_BY)
         .toFlowable()
         .flatMap { Flowable.fromIterable(it) }
+        .doOnNext {
+          imageDao.insertImage(it)
+          caches[it.id] = imageMapper.dataToDomain(it)
+        }
         .map { imageMapper.dataToDomain(it) }
         .doOnNext { caches[it.id] = it }
         .toList()
@@ -48,7 +52,8 @@ class ImageRepositoryImpl(private val imageService: ImageService,
     return if (caches.containsKey(imageId)) {
       Single.just(caches[imageId])
     } else {
-      Single.error(NoSuchElementException())
+      imageDao.getImage(imageId)
+          .map { imageMapper.dataToDomain(it) }
     }
   }
 
