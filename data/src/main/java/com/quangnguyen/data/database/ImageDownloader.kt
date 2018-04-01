@@ -58,7 +58,7 @@ class ImageDownloader {
     fileOutput.close()
   }
 
-  private fun getImageFilePath(imageFileName: String): String {
+  fun getImageFilePath(imageFileName: String): String {
     val imageExtension = ".jpg"
     return "$imageFolderPath$separator$imageFileName$imageExtension"
   }
