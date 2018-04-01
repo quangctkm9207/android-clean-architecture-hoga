@@ -15,7 +15,7 @@ interface ImageDao {
   fun getImages(): Single<List<ImageModel>>
 
   @Query("SELECT * FROM ${DatabaseConfig.IMAGE_TABLE_NAME} WHERE id = :imageId")
-  fun getImage(imageId: String): ImageModel
+  fun getImage(imageId: String): Single<ImageModel>
 
   @Insert(onConflict = OnConflictStrategy.IGNORE)
   fun insertImage(imageModel: ImageModel)

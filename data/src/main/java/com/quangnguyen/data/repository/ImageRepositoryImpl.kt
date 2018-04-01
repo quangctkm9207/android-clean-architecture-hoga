@@ -52,17 +52,30 @@ class ImageRepositoryImpl(private val imageService: ImageService,
     return if (caches.containsKey(imageId)) {
       Single.just(caches[imageId])
     } else {
-      Single.just(imageMapper.dataToDomain(imageDao.getImage(imageId)))
+      imageDao.getImage(imageId)
+          .map { imageMapper.dataToDomain(it) }
     }
   }
 
   override fun downloadImage(image: Image): Completable {
     val imageFileName = "${image.id}_${image.authorName.replace(" ", "")}"
-    return imageDownloader.download(image.downloadUrl, imageFileName).doOnComplete{
-      // Update image with the download file path
-      val imageModel = imageDao.getImage(image.id)
-      imageModel.downloadedFilePath = imageDownloader.getImageFilePath(imageFileName)
-      imageDao.updateImage(imageModel)
-    }
+
+    return imageDownloader.download(image.downloadUrl, imageFileName)
+        .toSingle { imageDao.getImage(image.id) }
+        .doOnSuccess {
+          val imageModel = it.blockingGet()
+          imageModel.downloadedFilePath = imageDownloader.getImageFilePath(imageFileName)
+          imageDao.updateImage(imageModel)
+        }
+        .toCompletable()
+  }
+
+  override fun loadDownloadedImages(): Single<List<Image>> {
+    return imageDao.getImages()
+        .toFlowable()
+        .flatMap { Flowable.fromIterable(it) }
+        .map { imageMapper.dataToDomain(it) }
+        .filter { it.downloadedFilePath != null }
+        .toList()
   }
 }

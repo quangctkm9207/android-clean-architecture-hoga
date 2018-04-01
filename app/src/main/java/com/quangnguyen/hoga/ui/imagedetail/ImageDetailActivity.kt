@@ -1,5 +1,6 @@
 package com.quangnguyen.hoga.ui.imagedetail
 
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
@@ -15,6 +16,7 @@ import com.quangnguyen.hoga.util.isStoragePermissionGranted
 import kotlinx.android.synthetic.main.activity_image_detail.authorText
 import kotlinx.android.synthetic.main.activity_image_detail.image
 import kotlinx.android.synthetic.main.activity_image_detail.progressBar
+import java.io.File
 
 
 class ImageDetailActivity : AppCompatActivity(), ImageDetailContract.View {
@@ -74,7 +76,13 @@ class ImageDetailActivity : AppCompatActivity(), ImageDetailContract.View {
   }
 
   override fun showImage(image: Image) {
-    Glide.with(this).load(image.smallImageUrl).into(this.image)
+    if (image.downloadedFilePath != null) {
+      val imageUri = Uri.fromFile(File(image.downloadedFilePath))
+      Glide.with(this).load(imageUri).into(this.image)
+    } else {
+      // If not, show it from web
+      Glide.with(this).load(image.smallImageUrl).into(this.image)
+    }
     authorText.text = String.format(getString(R.string.photo_by), image.authorName)
   }
 

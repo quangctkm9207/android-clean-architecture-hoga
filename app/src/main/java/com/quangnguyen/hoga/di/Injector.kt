@@ -8,6 +8,7 @@ import com.quangnguyen.data.mapper.ImageMapperImpl
 import com.quangnguyen.data.repository.ImageRepositoryImpl
 import com.quangnguyen.hoga.domain.interactor.image.DownloadImageUsecase
 import com.quangnguyen.hoga.domain.interactor.image.GetImageUseCase
+import com.quangnguyen.hoga.domain.interactor.image.LoadDownloadedImagesUseCase
 import com.quangnguyen.hoga.domain.interactor.image.LoadTrendingImagesUseCase
 import com.quangnguyen.hoga.domain.interactor.image.SearchImagesUseCase
 import com.quangnguyen.hoga.util.SchedulerProvider
@@ -19,6 +20,7 @@ class Injector {
     lateinit var searchImagesUseCase: SearchImagesUseCase
     lateinit var getImageUseCase: GetImageUseCase
     lateinit var downloadImageUseCase: DownloadImageUsecase
+    lateinit var loadDownloadedImagesUseCase: LoadDownloadedImagesUseCase
 
     lateinit var schedulerProvider: SchedulerProvider
 
@@ -33,6 +35,7 @@ class Injector {
       searchImagesUseCase = SearchImagesUseCase(imageRepository)
       getImageUseCase = GetImageUseCase(imageRepository)
       downloadImageUseCase = DownloadImageUsecase(imageRepository)
+      loadDownloadedImagesUseCase = LoadDownloadedImagesUseCase(imageRepository)
 
       schedulerProvider = SchedulerProvider()
     }
