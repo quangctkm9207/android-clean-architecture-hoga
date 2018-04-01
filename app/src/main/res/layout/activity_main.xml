@@ -13,10 +13,24 @@
       android:layout_width="0dp"
       android:layout_height="0dp"
       app:layout_behavior="@string/appbar_scrolling_view_behavior"
-      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintBottom_toTopOf="@+id/navigationView"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       />
 
+  <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
+      android:id="@+id/navigationView"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:layout_gravity="bottom"
+      android:background="@color/colorPrimary"
+      app:itemIconTint="@android:color/white"
+      app:itemTextColor="@android:color/white"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:menu="@menu/main_navigation"
+      />
 </android.support.constraint.ConstraintLayout>

@@ -4,4 +4,6 @@
   <string name="search_image_hint">Search photos that you love</string>
   <string name="photo_by">Photo by %s on Unsplash</string>
   <string name="download">Download</string>
+  <string name="explore">Explore</string>
+  <string name="collection">Collection</string>
 </resources>
