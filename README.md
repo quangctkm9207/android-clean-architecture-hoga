@@ -5,7 +5,7 @@ Hoga = Hộp(Vietnamese) + Gazo-画像 (Japanese)
 
 ## Status: WORK IN PROGRESS
 
-<img src="art/hoga_shot_1.png" height="400"/> <img src="art/hoga_shot_2.png" height="400"/> <img src="art/hoga_shot_3.png" height="400"/>
+<img src="art/hoga_shot_1.png" height="500"/> <img src="art/hoga_shot_2.png" height="500"/> <img src="art/hoga_shot_3.png" height="500"/>
 
 ## Target Audience
 * *For beautiful photo lover*  
