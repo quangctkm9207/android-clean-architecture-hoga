@@ -13,6 +13,11 @@ Build and run this app to get amazing images into your pocket.
 This project is built on **Clean Architecture**. 
 Besides, there are several technical stuffs such as Kotlin, reactive programming and dependence injection, or testing that you might be interested in.
 
+## UI
+<img src="art/hoga_shot_1.png" height="400"/>
+<img src="art/hoga_shot_2.png" height="400"/>
+<img src="art/hoga_shot_3.png" height="400"/>
+
 ## Features
 - Users can search pictures from various free image services
 - Users can download their favorite pictures
