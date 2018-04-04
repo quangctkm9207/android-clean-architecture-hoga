@@ -11,33 +11,30 @@ import io.reactivex.observers.TestObserver
 import org.junit.Before
 import org.junit.Test
 
-class GetImageUseCaseTest {
+class LoadDownloadedImagesUseCaseTest {
 
   private lateinit var imageRepository: ImageRepository
-  private lateinit var getImageUseCase: GetImageUseCase
+  private lateinit var loadDownloadedImagesUseCase: LoadDownloadedImagesUseCase
 
-  private lateinit var testObserver: TestObserver<Image>
+  private lateinit var testObserver: TestObserver<List<Image>>
 
   @Before
   fun setup() {
     imageRepository = mock()
-    getImageUseCase = GetImageUseCase(imageRepository)
-
+    loadDownloadedImagesUseCase = LoadDownloadedImagesUseCase(imageRepository)
     testObserver = TestObserver()
   }
 
   @Test
-  fun shouldReturnImageWithCorrespondingIdIfItIsAvailable() {
-    val imageId = "id1"
-    val image = Image(imageId, "smallImageUrl", "downloadUrl", "authorName", null)
-    given(imageRepository.getImage(imageId)).willReturn(Single.just(image))
+  fun shouldReturnDownloadedImage() {
+    given(imageRepository.loadDownloadedImages()).willReturn(Single.just(TESTING_CARTRIDGES))
 
-    getImageUseCase.execute(imageId).subscribe(testObserver)
+    loadDownloadedImagesUseCase.execute().subscribe(testObserver)
 
-    then(imageRepository).should(times(1)).getImage(imageId)
+    then(imageRepository).should(times(1)).loadDownloadedImages()
     then(imageRepository).shouldHaveNoMoreInteractions()
 
-    testObserver.assertValue(image)
     testObserver.assertComplete()
+    testObserver.assertValue(TESTING_CARTRIDGES)
   }
 }

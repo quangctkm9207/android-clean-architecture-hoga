@@ -1,6 +1,6 @@
 package com.quangnguyen.hoga.ui.imagedetail
 
-import com.quangnguyen.hoga.domain.interactor.image.DownloadImageUsecase
+import com.quangnguyen.hoga.domain.interactor.image.DownloadImageUseCase
 import com.quangnguyen.hoga.domain.interactor.image.GetImageUseCase
 import com.quangnguyen.hoga.domain.model.Image
 import com.quangnguyen.hoga.ui.imagedetail.ImageDetailContract.Presenter
@@ -10,7 +10,7 @@ import io.reactivex.disposables.CompositeDisposable
 
 class ImageDetailPresenter(private val view: ImageDetailContract.View,
     private val getImageUseCase: GetImageUseCase,
-    private val downloadImageUsecase: DownloadImageUsecase,
+    private val downloadImageUsecase: DownloadImageUseCase,
     private val schedulerProvider: SchedulerProvider) : Presenter {
 
   private val compositeDisposable = CompositeDisposable()
