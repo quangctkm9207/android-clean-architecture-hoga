@@ -28,8 +28,8 @@
       app:layout_constraintTop_toBottomOf="@+id/progressBar"
       />
 
-  <ImageView
-      android:id="@+id/image"
+  <com.github.chrisbanes.photoview.PhotoView
+    android:id="@+id/image"
       android:layout_width="0dp"
       android:layout_height="0dp"
       android:background="@color/black"
