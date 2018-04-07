@@ -44,7 +44,7 @@ class ImageDetailPresenter(private val view: ImageDetailContract.View,
       return
     }
 
-    view.showDowloadingIndicator()
+    view.showDownloadingIndicator()
 
     val disposable = downloadImageUsecase.execute(image!!)
         .subscribeOn(schedulerProvider.ioScheduler)

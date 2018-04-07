@@ -11,7 +11,7 @@ interface ImageDetailContract {
 
     fun showMessage(message: String)
 
-    fun showDowloadingIndicator()
+    fun showDownloadingIndicator()
 
     fun hideDownloadingIndicator()
   }

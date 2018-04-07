@@ -15,10 +15,9 @@ import com.quangnguyen.hoga.ui.imagedetail.ImageDetailContract.Presenter
 import com.quangnguyen.hoga.util.isStoragePermissionGranted
 import kotlinx.android.synthetic.main.activity_image_detail.authorText
 import kotlinx.android.synthetic.main.activity_image_detail.downloadingText
-import kotlinx.android.synthetic.main.activity_image_detail.image
+import kotlinx.android.synthetic.main.activity_image_detail.imageView
 import kotlinx.android.synthetic.main.activity_image_detail.progressBar
 import java.io.File
-
 
 class ImageDetailActivity : AppCompatActivity(), ImageDetailContract.View {
 
@@ -77,13 +76,14 @@ class ImageDetailActivity : AppCompatActivity(), ImageDetailContract.View {
   }
 
   override fun showImage(image: Image) {
-    if (image.downloadedFilePath != null) {
-      val imageUri = Uri.fromFile(File(image.downloadedFilePath))
-      Glide.with(this).load(imageUri).into(this.image)
+    var loadedResourcePath: Any?
+    loadedResourcePath = if (image.downloadedFilePath != null) {
+      Uri.fromFile(File(image.downloadedFilePath))
     } else {
       // If not, show it from web
-      Glide.with(this).load(image.smallImageUrl).into(this.image)
+      image.downloadedFilePath
     }
+    Glide.with(this).load(loadedResourcePath).into(this.imageView)
     authorText.text = String.format(getString(R.string.photo_by), image.authorName)
   }
 
@@ -91,7 +91,7 @@ class ImageDetailActivity : AppCompatActivity(), ImageDetailContract.View {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
   }
 
-  override fun showDowloadingIndicator() {
+  override fun showDownloadingIndicator() {
     downloadingText.visibility = View.VISIBLE
     progressBar.visibility = View.VISIBLE
   }
