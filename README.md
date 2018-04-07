@@ -16,9 +16,9 @@ This project is built on **Clean Architecture**.
 Besides, there are several technical stuffs such as Kotlin, reactive programming and dependence injection, or testing that you might be interested in.
 
 ## Features
-- Users can search pictures from various free image services
-- Users can download their favorite pictures
-- Users can set phone screen background with these pictures
+- Search and view beautiful pictures
+- Download favorite images
+- Set phone wallpaper with your truly love one
 
 ## Technical Specification
 * Programming language: Kotlin
