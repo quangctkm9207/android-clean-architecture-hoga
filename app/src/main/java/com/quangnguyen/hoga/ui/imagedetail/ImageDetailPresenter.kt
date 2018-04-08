@@ -66,12 +66,16 @@ class ImageDetailPresenter(private val view: ImageDetailContract.View,
       return
     }
 
+    view.showSettingWallpaperIndicator()
+
     val disposable = setWallpaperUseCase.execute(image!!)
         .subscribeOn(schedulerProvider.ioScheduler)
         .observeOn(schedulerProvider.uiScheduler)
         .subscribe({
+          view.hideSettingWallpaperIndicator()
           view.showMessage("Complete setting wallpaper!")
         }, {
+          view.hideSettingWallpaperIndicator()
           view.showMessage(it.localizedMessage)
         })
 

@@ -19,8 +19,8 @@ import com.quangnguyen.hoga.domain.entity.Image
 import com.quangnguyen.hoga.ui.imagedetail.ImageDetailContract.Presenter
 import com.quangnguyen.hoga.util.isStoragePermissionGranted
 import kotlinx.android.synthetic.main.activity_image_detail.authorText
-import kotlinx.android.synthetic.main.activity_image_detail.downloadingText
 import kotlinx.android.synthetic.main.activity_image_detail.imageView
+import kotlinx.android.synthetic.main.activity_image_detail.loadingText
 import kotlinx.android.synthetic.main.activity_image_detail.progressBar
 import java.io.File
 
@@ -115,12 +115,29 @@ class ImageDetailActivity : AppCompatActivity(), ImageDetailContract.View {
   }
 
   override fun showDownloadingIndicator() {
-    downloadingText.visibility = View.VISIBLE
-    progressBar.visibility = View.VISIBLE
+    showIndicator(getString(R.string.downloading))
   }
 
   override fun hideDownloadingIndicator() {
-    downloadingText.visibility = View.GONE
+    hideIndicator()
+  }
+
+  override fun showSettingWallpaperIndicator() {
+    showIndicator(getString(R.string.setting_wallpaper))
+  }
+
+  override fun hideSettingWallpaperIndicator() {
+    hideIndicator()
+  }
+
+  private fun showIndicator(text: String) {
+    loadingText.text = text
+    loadingText.visibility = View.VISIBLE
+    progressBar.visibility = View.VISIBLE
+  }
+
+  private fun hideIndicator() {
+    loadingText.visibility = View.GONE
     progressBar.visibility = View.GONE
   }
 }

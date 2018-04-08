@@ -14,6 +14,10 @@ interface ImageDetailContract {
     fun showDownloadingIndicator()
 
     fun hideDownloadingIndicator()
+
+    fun showSettingWallpaperIndicator()
+
+    fun hideSettingWallpaperIndicator()
   }
 
   interface Presenter: BasePresenter {
