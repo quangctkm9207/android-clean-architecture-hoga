@@ -1,5 +1,6 @@
 package com.quangnguyen.hoga.ui.images
 
+import com.quangnguyen.hoga.domain.entity.Image
 import com.quangnguyen.hoga.domain.usecase.image.LoadTrendingImagesUseCase
 import com.quangnguyen.hoga.domain.usecase.image.SearchImagesUseCase
 import com.quangnguyen.hoga.util.SchedulerProvider
@@ -12,8 +13,14 @@ class ImagesPresenter(private val view: ImagesContract.View,
 
   private val compositeDisposable = CompositeDisposable()
 
+  private var caches: MutableList<Image> = ArrayList()
+
   override fun attach() {
-    loadTrendingImages()
+    if (!caches.isEmpty()) {
+      view.showImages(caches)
+    } else {
+      loadTrendingImages()
+    }
   }
 
   override fun detach() {
@@ -30,6 +37,8 @@ class ImagesPresenter(private val view: ImagesContract.View,
         .subscribe({ images ->
           view.stopLoadingIndicator()
           view.showImages(images)
+
+          replaceCaches(images)
         }, { error ->
           view.stopLoadingIndicator()
           view.showErrorMessage(error.localizedMessage)
@@ -48,6 +57,8 @@ class ImagesPresenter(private val view: ImagesContract.View,
         .subscribe({ images ->
           view.stopLoadingIndicator()
           view.showImages(images)
+
+          replaceCaches(images)
         }, { error ->
           view.stopLoadingIndicator()
           view.showErrorMessage(error.localizedMessage)
@@ -58,5 +69,10 @@ class ImagesPresenter(private val view: ImagesContract.View,
 
   override fun loadImageDetail(imageId: String) {
     view.showImageDetail(imageId)
+  }
+
+  private fun replaceCaches(images: List<Image>) {
+    caches.clear()
+    caches.addAll(images)
   }
 }

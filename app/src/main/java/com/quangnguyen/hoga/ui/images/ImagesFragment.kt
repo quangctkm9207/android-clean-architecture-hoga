@@ -22,8 +22,8 @@ import kotlinx.android.synthetic.main.fragment_images.*
 
 class ImagesFragment : Fragment(), ImagesContract.View {
 
-  lateinit var presenter: ImagesPresenter
-  lateinit var adapter: ImageAdapter
+  private lateinit var presenter: ImagesContract.Presenter
+  private lateinit var adapter: ImageAdapter
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
@@ -32,19 +32,16 @@ class ImagesFragment : Fragment(), ImagesContract.View {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View? {
-    val rootView = inflater.inflate(R.layout.fragment_images, container, false)
-    return rootView
+    return inflater.inflate(R.layout.fragment_images, container, false)
   }
 
   override fun onStart() {
     super.onStart()
-    initPresenter()
     setupViews()
   }
 
-  private fun initPresenter() {
-    presenter = ImagesPresenter(this, Injector.loadTrendingImagesUseCase,
-        Injector.searchImagesUseCase, Injector.schedulerProvider)
+  fun setPresenter(presenter: ImagesContract.Presenter) {
+    this.presenter = presenter
   }
 
   private fun setupViews() {

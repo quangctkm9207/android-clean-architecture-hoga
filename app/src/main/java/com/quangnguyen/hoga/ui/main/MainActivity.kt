@@ -5,11 +5,15 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.quangnguyen.hoga.R
 import com.quangnguyen.hoga.R.layout
+import com.quangnguyen.hoga.di.Injector
 import com.quangnguyen.hoga.ui.collection.CollectionFragment
 import com.quangnguyen.hoga.ui.images.ImagesFragment
+import com.quangnguyen.hoga.ui.images.ImagesPresenter
 import kotlinx.android.synthetic.main.activity_main.navigationView
 
 class MainActivity : AppCompatActivity() {
+
+  private lateinit var presenter: ImagesPresenter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -17,7 +21,12 @@ class MainActivity : AppCompatActivity() {
 
     setupBottomNavigation()
     title = getString(R.string.explore)
-    replaceFragment(ImagesFragment())
+
+    val imagesFragment = ImagesFragment()
+    presenter = ImagesPresenter(imagesFragment, Injector.loadTrendingImagesUseCase,
+        Injector.searchImagesUseCase, Injector.schedulerProvider)
+    imagesFragment.setPresenter(presenter)
+    replaceFragment(imagesFragment)
   }
 
   private fun setupBottomNavigation() {
