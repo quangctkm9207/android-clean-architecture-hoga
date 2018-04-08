@@ -1,8 +1,8 @@
 package com.quangnguyen.hoga.ui.imagedetail
 
-import com.quangnguyen.hoga.domain.interactor.image.DownloadImageUseCase
-import com.quangnguyen.hoga.domain.interactor.image.GetImageUseCase
-import com.quangnguyen.hoga.domain.model.Image
+import com.quangnguyen.hoga.domain.usecase.image.DownloadImageUseCase
+import com.quangnguyen.hoga.domain.usecase.image.GetImageUseCase
+import com.quangnguyen.hoga.domain.entity.Image
 import com.quangnguyen.hoga.ui.imagedetail.ImageDetailContract.Presenter
 import com.quangnguyen.hoga.util.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
@@ -10,7 +10,7 @@ import io.reactivex.disposables.CompositeDisposable
 
 class ImageDetailPresenter(private val view: ImageDetailContract.View,
     private val getImageUseCase: GetImageUseCase,
-    private val downloadImageUsecase: DownloadImageUseCase,
+    private val downloadImageUseCase: DownloadImageUseCase,
     private val schedulerProvider: SchedulerProvider) : Presenter {
 
   private val compositeDisposable = CompositeDisposable()
@@ -46,7 +46,7 @@ class ImageDetailPresenter(private val view: ImageDetailContract.View,
 
     view.showDownloadingIndicator()
 
-    val disposable = downloadImageUsecase.execute(image!!)
+    val disposable = downloadImageUseCase.execute(image!!)
         .subscribeOn(schedulerProvider.ioScheduler)
         .observeOn(schedulerProvider.uiScheduler)
         .subscribe({
@@ -58,5 +58,11 @@ class ImageDetailPresenter(private val view: ImageDetailContract.View,
         })
 
     compositeDisposable.add(disposable)
+  }
+
+  override fun setWallpaper() {
+    if (image == null) {
+      return
+    }
   }
 }

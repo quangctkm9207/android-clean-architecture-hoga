@@ -10,7 +10,7 @@ import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.quangnguyen.hoga.R
 import com.quangnguyen.hoga.di.Injector
-import com.quangnguyen.hoga.domain.model.Image
+import com.quangnguyen.hoga.domain.entity.Image
 import com.quangnguyen.hoga.ui.imagedetail.ImageDetailContract.Presenter
 import com.quangnguyen.hoga.util.isStoragePermissionGranted
 import kotlinx.android.synthetic.main.activity_image_detail.authorText

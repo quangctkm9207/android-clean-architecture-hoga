@@ -6,11 +6,11 @@ import com.quangnguyen.data.database.DatabaseGenerator
 import com.quangnguyen.data.database.ImageDownloader
 import com.quangnguyen.data.mapper.ImageMapperImpl
 import com.quangnguyen.data.repository.ImageRepositoryImpl
-import com.quangnguyen.hoga.domain.interactor.image.DownloadImageUseCase
-import com.quangnguyen.hoga.domain.interactor.image.GetImageUseCase
-import com.quangnguyen.hoga.domain.interactor.image.LoadDownloadedImagesUseCase
-import com.quangnguyen.hoga.domain.interactor.image.LoadTrendingImagesUseCase
-import com.quangnguyen.hoga.domain.interactor.image.SearchImagesUseCase
+import com.quangnguyen.hoga.domain.usecase.image.DownloadImageUseCase
+import com.quangnguyen.hoga.domain.usecase.image.GetImageUseCase
+import com.quangnguyen.hoga.domain.usecase.image.LoadDownloadedImagesUseCase
+import com.quangnguyen.hoga.domain.usecase.image.LoadTrendingImagesUseCase
+import com.quangnguyen.hoga.domain.usecase.image.SearchImagesUseCase
 import com.quangnguyen.hoga.util.SchedulerProvider
 
 class Injector {

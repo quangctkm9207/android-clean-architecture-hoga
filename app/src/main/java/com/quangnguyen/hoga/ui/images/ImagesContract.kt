@@ -1,6 +1,6 @@
 package com.quangnguyen.hoga.ui.images
 
-import com.quangnguyen.hoga.domain.model.Image
+import com.quangnguyen.hoga.domain.entity.Image
 import com.quangnguyen.hoga.ui.base.BasePresenter
 
 

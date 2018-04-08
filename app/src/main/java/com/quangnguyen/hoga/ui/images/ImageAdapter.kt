@@ -10,7 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.quangnguyen.hoga.R
-import com.quangnguyen.hoga.domain.model.Image
+import com.quangnguyen.hoga.domain.entity.Image
 import com.quangnguyen.hoga.ui.base.BaseRecyclerViewAdapter
 import java.io.File
 

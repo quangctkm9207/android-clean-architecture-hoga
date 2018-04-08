@@ -1,6 +1,6 @@
 package com.quangnguyen.hoga.domain.repository
 
-import com.quangnguyen.hoga.domain.model.Image
+import com.quangnguyen.hoga.domain.entity.Image
 import io.reactivex.Completable
 import io.reactivex.Single
 

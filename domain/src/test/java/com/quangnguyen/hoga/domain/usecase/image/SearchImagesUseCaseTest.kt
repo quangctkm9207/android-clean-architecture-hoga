@@ -1,37 +1,39 @@
-package com.quangnguyen.hoga.domain.interactor.image
+package com.quangnguyen.hoga.domain.usecase.image
 
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.then
 import com.nhaarman.mockito_kotlin.times
-import com.quangnguyen.hoga.domain.model.Image
+import com.quangnguyen.hoga.domain.entity.Image
 import com.quangnguyen.hoga.domain.repository.ImageRepository
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
 import org.junit.Before
 import org.junit.Test
 
-class LoadTrendingImagesUseCaseTest {
+class SearchImagesUseCaseTest {
 
   private lateinit var imageRepository: ImageRepository
-  private lateinit var loadTrendingImagesUseCase: LoadTrendingImagesUseCase
+  private lateinit var searchImagesUseCase: SearchImagesUseCase
 
   private lateinit var testObserver: TestObserver<List<Image>>
 
   @Before
-  fun setup(){
+  fun setup() {
     imageRepository = mock()
-    loadTrendingImagesUseCase = LoadTrendingImagesUseCase(imageRepository)
+    searchImagesUseCase = SearchImagesUseCase(imageRepository)
     testObserver = TestObserver()
   }
 
   @Test
-  fun shouldReturnImages() {
-    given(imageRepository.loadTrendingImages()).willReturn(Single.just(TESTING_CARTRIDGES))
+  fun shouldReturnImagesIfTheyAreAvailable() {
+    val keyword = "orange"
 
-    loadTrendingImagesUseCase.execute().subscribe(testObserver)
+    given(imageRepository.searchImages(keyword)).willReturn(Single.just(TESTING_CARTRIDGES))
 
-    then(imageRepository).should(times(1)).loadTrendingImages()
+    searchImagesUseCase.execute(keyword).subscribe(testObserver)
+
+    then(imageRepository).should(times(1)).searchImages(keyword)
     then(imageRepository).shouldHaveNoMoreInteractions()
 
     testObserver.assertComplete()

@@ -1,6 +1,6 @@
-package com.quangnguyen.hoga.domain.interactor.image
+package com.quangnguyen.hoga.domain.usecase.image
 
-import com.quangnguyen.hoga.domain.model.Image
+import com.quangnguyen.hoga.domain.entity.Image
 
 val TESTING_CARTRIDGES = listOf(
     Image("image1", "small_image_url1", "download_url1", "author1", null),

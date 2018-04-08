@@ -1,37 +1,37 @@
-package com.quangnguyen.hoga.domain.interactor.image
+package com.quangnguyen.hoga.domain.usecase.image
 
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.then
 import com.nhaarman.mockito_kotlin.times
-import com.quangnguyen.hoga.domain.model.Image
+import com.quangnguyen.hoga.domain.entity.Image
 import com.quangnguyen.hoga.domain.repository.ImageRepository
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
 import org.junit.Before
 import org.junit.Test
 
-class LoadDownloadedImagesUseCaseTest {
+class LoadTrendingImagesUseCaseTest {
 
   private lateinit var imageRepository: ImageRepository
-  private lateinit var loadDownloadedImagesUseCase: LoadDownloadedImagesUseCase
+  private lateinit var loadTrendingImagesUseCase: LoadTrendingImagesUseCase
 
   private lateinit var testObserver: TestObserver<List<Image>>
 
   @Before
-  fun setup() {
+  fun setup(){
     imageRepository = mock()
-    loadDownloadedImagesUseCase = LoadDownloadedImagesUseCase(imageRepository)
+    loadTrendingImagesUseCase = LoadTrendingImagesUseCase(imageRepository)
     testObserver = TestObserver()
   }
 
   @Test
-  fun shouldReturnDownloadedImage() {
-    given(imageRepository.loadDownloadedImages()).willReturn(Single.just(TESTING_CARTRIDGES))
+  fun shouldReturnImages() {
+    given(imageRepository.loadTrendingImages()).willReturn(Single.just(TESTING_CARTRIDGES))
 
-    loadDownloadedImagesUseCase.execute().subscribe(testObserver)
+    loadTrendingImagesUseCase.execute().subscribe(testObserver)
 
-    then(imageRepository).should(times(1)).loadDownloadedImages()
+    then(imageRepository).should(times(1)).loadTrendingImages()
     then(imageRepository).shouldHaveNoMoreInteractions()
 
     testObserver.assertComplete()

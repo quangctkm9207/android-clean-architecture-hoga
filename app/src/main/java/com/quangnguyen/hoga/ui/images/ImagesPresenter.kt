@@ -1,7 +1,7 @@
 package com.quangnguyen.hoga.ui.images
 
-import com.quangnguyen.hoga.domain.interactor.image.LoadTrendingImagesUseCase
-import com.quangnguyen.hoga.domain.interactor.image.SearchImagesUseCase
+import com.quangnguyen.hoga.domain.usecase.image.LoadTrendingImagesUseCase
+import com.quangnguyen.hoga.domain.usecase.image.SearchImagesUseCase
 import com.quangnguyen.hoga.util.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
 

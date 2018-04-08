@@ -1,6 +1,6 @@
 package com.quangnguyen.hoga.ui.collection
 
-import com.quangnguyen.hoga.domain.interactor.image.LoadDownloadedImagesUseCase
+import com.quangnguyen.hoga.domain.usecase.image.LoadDownloadedImagesUseCase
 import com.quangnguyen.hoga.util.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
 

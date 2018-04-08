@@ -6,7 +6,7 @@ import com.quangnguyen.data.api.ImageService
 import com.quangnguyen.data.database.ImageDao
 import com.quangnguyen.data.database.ImageDownloader
 import com.quangnguyen.data.mapper.ImageMapper
-import com.quangnguyen.hoga.domain.model.Image
+import com.quangnguyen.hoga.domain.entity.Image
 import com.quangnguyen.hoga.domain.repository.ImageRepository
 import io.reactivex.Completable
 import io.reactivex.Flowable

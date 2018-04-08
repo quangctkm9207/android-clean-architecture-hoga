@@ -1,7 +1,7 @@
-package com.quangnguyen.hoga.domain.interactor.image
+package com.quangnguyen.hoga.domain.usecase.image
 
-import com.quangnguyen.hoga.domain.interactor.SingleUseCaseWithParam
-import com.quangnguyen.hoga.domain.model.Image
+import com.quangnguyen.hoga.domain.usecase.SingleUseCaseWithParam
+import com.quangnguyen.hoga.domain.entity.Image
 import com.quangnguyen.hoga.domain.repository.ImageRepository
 import io.reactivex.Single
 

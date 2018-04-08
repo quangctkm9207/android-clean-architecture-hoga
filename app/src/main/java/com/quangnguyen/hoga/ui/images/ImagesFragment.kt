@@ -14,7 +14,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import com.quangnguyen.hoga.R
 import com.quangnguyen.hoga.di.Injector
-import com.quangnguyen.hoga.domain.model.Image
+import com.quangnguyen.hoga.domain.entity.Image
 import com.quangnguyen.hoga.ui.base.RecyclerViewListener
 import com.quangnguyen.hoga.ui.imagedetail.ImageDetailActivity
 import com.quangnguyen.hoga.util.hideKeyboard

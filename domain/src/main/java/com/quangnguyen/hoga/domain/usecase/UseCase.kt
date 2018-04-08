@@ -1,4 +1,4 @@
-package com.quangnguyen.hoga.domain.interactor
+package com.quangnguyen.hoga.domain.usecase
 
 import io.reactivex.Completable
 import io.reactivex.Flowable
