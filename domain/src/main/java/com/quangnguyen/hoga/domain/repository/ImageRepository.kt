@@ -12,7 +12,9 @@ interface ImageRepository {
 
   fun getImage(imageId: String): Single<Image>
 
+  fun loadDownloadedImages(): Single<List<Image>>
+
   fun downloadImage(image: Image): Completable
 
-  fun loadDownloadedImages(): Single<List<Image>>
+  fun setWallpaper(image: Image): Completable
 }
