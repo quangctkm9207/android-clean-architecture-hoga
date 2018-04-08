@@ -4,7 +4,8 @@ import com.quangnguyen.data.BuildConfig
 import com.quangnguyen.data.api.ApiConfig
 import com.quangnguyen.data.api.ImageService
 import com.quangnguyen.data.database.ImageDao
-import com.quangnguyen.data.database.ImageDownloader
+import com.quangnguyen.data.device.ImageDownloader
+import com.quangnguyen.data.device.WallpaperHelper
 import com.quangnguyen.data.mapper.ImageMapper
 import com.quangnguyen.hoga.domain.entity.Image
 import com.quangnguyen.hoga.domain.repository.ImageRepository
@@ -15,6 +16,7 @@ import io.reactivex.Single
 class ImageRepositoryImpl(private val imageService: ImageService,
     private val imageDao: ImageDao,
     private val imageDownloader: ImageDownloader,
+    private val wallpaperHelper: WallpaperHelper,
     private val imageMapper: ImageMapper) : ImageRepository {
   private val token = BuildConfig.UNSPLASH_TOKEN
 
@@ -72,5 +74,9 @@ class ImageRepositoryImpl(private val imageService: ImageService,
         .map { imageMapper.dataToDomain(it) }
         .filter { it.downloadedFilePath != null }
         .toList()
+  }
+
+  override fun setWallpaper(image: Image): Completable {
+    return wallpaperHelper.setWallpaper(image.downloadUrl)
   }
 }

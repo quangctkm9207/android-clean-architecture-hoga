@@ -7,8 +7,8 @@
       app:showAsAction="never"
       />
   <item
-      android:id="@+id/set_background"
-      android:title="@string/set_background"
+      android:id="@+id/set_wallpaper"
+      android:title="@string/set_wallpaper"
       app:showAsAction="never"
       />
 </menu>

@@ -44,6 +44,7 @@ class ImageDetailActivity : AppCompatActivity(), ImageDetailContract.View {
 
   private fun initPresenter() {
     presenter = ImageDetailPresenter(this, Injector.getImageUseCase, Injector.downloadImageUseCase,
+        Injector.setWallpaperUseCase,
         Injector.schedulerProvider)
   }
 
@@ -76,6 +77,7 @@ class ImageDetailActivity : AppCompatActivity(), ImageDetailContract.View {
           presenter.downloadImage()
         }
       }
+      R.id.set_wallpaper -> presenter.setWallpaper()
     }
     return true
   }

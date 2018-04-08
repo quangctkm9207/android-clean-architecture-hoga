@@ -1,4 +1,4 @@
-package com.quangnguyen.data.database
+package com.quangnguyen.data.device
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
