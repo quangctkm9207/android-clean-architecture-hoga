@@ -1,5 +1,6 @@
 package com.quangnguyen.hoga.ui.imagedetail
 
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -8,6 +9,10 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.quangnguyen.hoga.R
 import com.quangnguyen.hoga.di.Injector
 import com.quangnguyen.hoga.domain.entity.Image
@@ -81,9 +86,25 @@ class ImageDetailActivity : AppCompatActivity(), ImageDetailContract.View {
       Uri.fromFile(File(image.downloadedFilePath))
     } else {
       // If not, show it from web
-      image.downloadedFilePath
+      image.downloadUrl
     }
-    Glide.with(this).load(loadedResourcePath).into(this.imageView)
+    progressBar.visibility = View.VISIBLE
+    Glide.with(this)
+        .load(loadedResourcePath)
+        .listener(object : RequestListener<Drawable> {
+          override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?,
+              dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+            progressBar.visibility = View.GONE
+            return false
+          }
+
+          override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?,
+              isFirstResource: Boolean): Boolean {
+            progressBar.visibility = View.GONE
+            return false
+          }
+        })
+        .into(this.imageView)
     authorText.text = String.format(getString(R.string.photo_by), image.authorName)
   }
 
