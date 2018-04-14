@@ -17,7 +17,6 @@ import com.quangnguyen.hoga.di.Injector
 import com.quangnguyen.hoga.domain.entity.Image
 import com.quangnguyen.hoga.ui.base.RecyclerViewListener
 import com.quangnguyen.hoga.ui.imagedetail.ImageDetailActivity
-import com.quangnguyen.hoga.util.hideKeyboard
 import kotlinx.android.synthetic.main.fragment_images.*
 
 class ImagesFragment : Fragment(), ImagesContract.View {
@@ -84,7 +83,7 @@ class ImagesFragment : Fragment(), ImagesContract.View {
 
     searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
       override fun onQueryTextSubmit(query: String): Boolean {
-        activity?.let { hideKeyboard(it) }
+        searchView.clearFocus()
 
         presenter.searchImages(keyword = query)
         return true
