@@ -37,5 +37,6 @@ notifications:
 before_install:
   - yes | sdkmanager "platforms;android-26"
   - yes | sdkmanager "platforms;android-27"
+  - cp local.properties.travis local.properties
 script:
   - ./gradlew build
