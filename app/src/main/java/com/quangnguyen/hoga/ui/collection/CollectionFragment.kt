@@ -23,12 +23,12 @@ class CollectionFragment : Fragment(), CollectionContract.View {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View? {
+    initPresenter()
     return inflater.inflate(R.layout.fragment_collection, container, false)
   }
 
   override fun onStart() {
     super.onStart()
-    initPresenter()
     setupViews()
   }
 

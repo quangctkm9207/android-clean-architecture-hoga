@@ -32,6 +32,7 @@ class ImagesFragment : Fragment(), ImagesContract.View {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View? {
+    initPresenter()
     return inflater.inflate(R.layout.fragment_images, container, false)
   }
 
@@ -40,8 +41,9 @@ class ImagesFragment : Fragment(), ImagesContract.View {
     setupViews()
   }
 
-  fun setPresenter(presenter: ImagesContract.Presenter) {
-    this.presenter = presenter
+  private fun initPresenter() {
+    presenter = ImagesPresenter(this, Injector.loadTrendingImagesUseCase,
+        Injector.searchImagesUseCase, Injector.schedulerProvider)
   }
 
   private fun setupViews() {

@@ -2,18 +2,18 @@ package com.quangnguyen.hoga.ui.main
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import com.quangnguyen.hoga.R
 import com.quangnguyen.hoga.R.layout
-import com.quangnguyen.hoga.di.Injector
 import com.quangnguyen.hoga.ui.collection.CollectionFragment
 import com.quangnguyen.hoga.ui.images.ImagesFragment
-import com.quangnguyen.hoga.ui.images.ImagesPresenter
 import kotlinx.android.synthetic.main.activity_main.navigationView
 
 class MainActivity : AppCompatActivity() {
 
-  private lateinit var presenter: ImagesPresenter
+  companion object {
+    private const val EXPLORE_FRAGMENT_TAG = "explore_fragment"
+    private const val COLLECTION_FRAGMENT_TAG = "collection_fragment"
+  }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -22,11 +22,7 @@ class MainActivity : AppCompatActivity() {
     setupBottomNavigation()
     title = getString(R.string.explore)
 
-    val imagesFragment = ImagesFragment()
-    presenter = ImagesPresenter(imagesFragment, Injector.loadTrendingImagesUseCase,
-        Injector.searchImagesUseCase, Injector.schedulerProvider)
-    imagesFragment.setPresenter(presenter)
-    replaceFragment(imagesFragment)
+    replaceExploreFragment()
   }
 
   private fun setupBottomNavigation() {
@@ -38,14 +34,32 @@ class MainActivity : AppCompatActivity() {
       this@MainActivity.title = item.title
       // Update corresponding fragment
       when (item.itemId) {
-        R.id.nav_explore -> replaceFragment(ImagesFragment())
-        R.id.nav_collection -> replaceFragment(CollectionFragment())
+        R.id.nav_explore -> replaceExploreFragment()
+        R.id.nav_collection -> replaceCollectionFragment()
       }
       true
     }
   }
 
-  private fun replaceFragment(fragment: Fragment) {
-    supportFragmentManager.beginTransaction().replace(R.id.container, fragment).commit()
+  private fun replaceExploreFragment() {
+    val exploreFragment = supportFragmentManager.findFragmentByTag(EXPLORE_FRAGMENT_TAG)
+    if (exploreFragment == null) {
+      supportFragmentManager.beginTransaction().replace(R.id.container, ImagesFragment(),
+          EXPLORE_FRAGMENT_TAG).commit()
+    } else {
+      supportFragmentManager.beginTransaction().replace(R.id.container, exploreFragment,
+          EXPLORE_FRAGMENT_TAG).commit()
+    }
+  }
+
+  private fun replaceCollectionFragment() {
+    val collectionFragment = supportFragmentManager.findFragmentByTag(COLLECTION_FRAGMENT_TAG)
+    if (collectionFragment == null) {
+      supportFragmentManager.beginTransaction().replace(R.id.container, CollectionFragment(),
+          COLLECTION_FRAGMENT_TAG).commit()
+    } else {
+      supportFragmentManager.beginTransaction().replace(R.id.container, collectionFragment,
+          COLLECTION_FRAGMENT_TAG).commit()
+    }
   }
 }
