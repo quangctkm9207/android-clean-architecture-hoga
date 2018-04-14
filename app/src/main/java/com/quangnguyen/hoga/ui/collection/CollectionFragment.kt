@@ -13,7 +13,7 @@ import com.quangnguyen.hoga.di.Injector
 import com.quangnguyen.hoga.domain.entity.Image
 import com.quangnguyen.hoga.ui.base.RecyclerViewListener
 import com.quangnguyen.hoga.ui.imagedetail.ImageDetailActivity
-import com.quangnguyen.hoga.ui.images.ImageAdapter
+import com.quangnguyen.hoga.ui.explore.ImageAdapter
 import kotlinx.android.synthetic.main.fragment_images.imageRecyclerView
 
 class CollectionFragment : Fragment(), CollectionContract.View {

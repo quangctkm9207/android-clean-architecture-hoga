@@ -1,4 +1,4 @@
-package com.quangnguyen.hoga.ui.images
+package com.quangnguyen.hoga.ui.explore
 
 import android.content.Context
 import android.net.Uri

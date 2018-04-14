@@ -1,4 +1,4 @@
-package com.quangnguyen.hoga.ui.images
+package com.quangnguyen.hoga.ui.explore
 
 import android.content.Intent
 import android.os.Bundle
@@ -19,9 +19,9 @@ import com.quangnguyen.hoga.ui.base.RecyclerViewListener
 import com.quangnguyen.hoga.ui.imagedetail.ImageDetailActivity
 import kotlinx.android.synthetic.main.fragment_images.*
 
-class ImagesFragment : Fragment(), ImagesContract.View {
+class ExploreFragment : Fragment(), ExploreContract.View {
 
-  private lateinit var presenter: ImagesContract.Presenter
+  private lateinit var presenter: ExploreContract.Presenter
   private lateinit var adapter: ImageAdapter
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -41,7 +41,7 @@ class ImagesFragment : Fragment(), ImagesContract.View {
   }
 
   private fun initPresenter() {
-    presenter = ImagesPresenter(this, Injector.loadTrendingImagesUseCase,
+    presenter = ExplorePresenter(this, Injector.loadTrendingImagesUseCase,
         Injector.searchImagesUseCase, Injector.schedulerProvider)
   }
 
@@ -70,7 +70,7 @@ class ImagesFragment : Fragment(), ImagesContract.View {
 
   override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
     if (inflater != null && menu != null) {
-      inflater.inflate(R.menu.fragment_images, menu)
+      inflater.inflate(R.menu.fragment_explore, menu)
       // Setup search widget in action bar
       val searchView = menu.findItem(R.id.search).actionView as SearchView
       setupSearchView(searchView)

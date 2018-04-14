@@ -1,10 +1,10 @@
-package com.quangnguyen.hoga.ui.images
+package com.quangnguyen.hoga.ui.explore
 
 import com.quangnguyen.hoga.domain.entity.Image
 import com.quangnguyen.hoga.ui.base.BasePresenter
 
 
-interface ImagesContract {
+interface ExploreContract {
 
   interface View {
 

@@ -1,4 +1,4 @@
-package com.quangnguyen.hoga.ui.images
+package com.quangnguyen.hoga.ui.explore
 
 import com.quangnguyen.hoga.domain.entity.Image
 import com.quangnguyen.hoga.domain.usecase.image.LoadTrendingImagesUseCase
@@ -6,10 +6,10 @@ import com.quangnguyen.hoga.domain.usecase.image.SearchImagesUseCase
 import com.quangnguyen.hoga.util.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
 
-class ImagesPresenter(private val view: ImagesContract.View,
+class ExplorePresenter(private val view: ExploreContract.View,
     private val loadTrendingImagesUseCase: LoadTrendingImagesUseCase,
     private val searchImagesUseCase: SearchImagesUseCase,
-    private val schedulerProvider: SchedulerProvider) : ImagesContract.Presenter {
+    private val schedulerProvider: SchedulerProvider) : ExploreContract.Presenter {
 
   private val compositeDisposable = CompositeDisposable()
 

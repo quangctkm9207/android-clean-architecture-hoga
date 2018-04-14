@@ -5,7 +5,7 @@ import android.os.Bundle
 import com.quangnguyen.hoga.R
 import com.quangnguyen.hoga.R.layout
 import com.quangnguyen.hoga.ui.collection.CollectionFragment
-import com.quangnguyen.hoga.ui.images.ImagesFragment
+import com.quangnguyen.hoga.ui.explore.ExploreFragment
 import kotlinx.android.synthetic.main.activity_main.navigationView
 
 class MainActivity : AppCompatActivity() {
@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
   private fun replaceExploreFragment() {
     val exploreFragment = supportFragmentManager.findFragmentByTag(EXPLORE_FRAGMENT_TAG)
     if (exploreFragment == null) {
-      supportFragmentManager.beginTransaction().replace(R.id.container, ImagesFragment(),
+      supportFragmentManager.beginTransaction().replace(R.id.container, ExploreFragment(),
           EXPLORE_FRAGMENT_TAG).commit()
     } else {
       supportFragmentManager.beginTransaction().replace(R.id.container, exploreFragment,
