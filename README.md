@@ -1,17 +1,15 @@
 # Hoga
 A mobile image box allows you to search and download free and beautiful pictures which you definitely love. 
 
-Hoga = Hộp(Vietnamese) + Gazo-画像 (Japanese)
-
-## Status: WORK IN PROGRESS
+`Hoga` = `Hộp`(in Vietnamese) + `Gazo`-画像 (in Japanese)
 
 <img src="art/hoga_shot_1.png" height="500"/> <img src="art/hoga_shot_2.png" height="500"/> <img src="art/hoga_shot_3.png" height="500"/>
 
 ## Target Audience
-* *For beautiful photo lover*  
+* *For the beautiful photo lover*  
 Build and run this app to get amazing images into your pocket. 
 
-* *For technical explorer*  
+* *For the technical explorer*  
 This project is built on **Clean Architecture**. 
 Besides, there are several technical stuffs such as Kotlin, reactive programming and dependence injection, or testing that you might be interested in.
 
