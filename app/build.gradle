@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 apply from: 'https://raw.githubusercontent.com/mcrafts/dot-gradles/master/test-report.gradle'
 
 android {
@@ -41,6 +42,14 @@ android {
 
     // Glide
     implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
+
+    // Dagger
+    implementation "com.google.dagger:dagger:$rootProject.daggerVersion"
+    implementation "com.google.dagger:dagger-android:$rootProject.daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:$rootProject.daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
+    kapt "com.google.dagger:dagger-android-processor:$rootProject.daggerVersion"
+    compileOnly 'org.glassfish:javax.annotation:10.0-b28'
 
     // RxJava
     implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxJavaVersion"
