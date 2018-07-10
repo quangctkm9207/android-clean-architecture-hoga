@@ -6,17 +6,16 @@ targetCompatibility = "1.8"
 
 configurations.all {
   resolutionStrategy {
-    force "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    force deps.kotlin.stdlib
   }
 }
 
 dependencies {
-  implementation "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+  implementation deps.kotlin.stdlib
   // RxJava
-  implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxJavaVersion"
-  // Local Unit Test
-  testImplementation "junit:junit:$rootProject.junitVersion"
-  testImplementation "org.mockito:mockito-core:$rootProject.mockitoVersion"
-  testImplementation "org.hamcrest:hamcrest-all:$rootProject.hamcrestVersion"
-  testImplementation "com.nhaarman:mockito-kotlin:$rootProject.mockitoKotlinVersion"
+  implementation deps.rxJava
+  // Unit Test
+  implementation deps.junit
+  implementation deps.mockito.core
+  implementation deps.mockito.kotlin
 }
