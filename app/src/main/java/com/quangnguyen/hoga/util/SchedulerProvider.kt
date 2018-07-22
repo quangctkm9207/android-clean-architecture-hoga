@@ -7,11 +7,6 @@ import io.reactivex.schedulers.Schedulers
 
 class SchedulerProvider {
 
-  val uiScheduler: Scheduler
-  val ioScheduler: Scheduler
-
-  init {
-    uiScheduler = AndroidSchedulers.mainThread()
-    ioScheduler = Schedulers.io()
-  }
+  val uiScheduler: Scheduler = AndroidSchedulers.mainThread()
+  val ioScheduler: Scheduler = Schedulers.io()
 }

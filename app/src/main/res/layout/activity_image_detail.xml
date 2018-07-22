@@ -50,7 +50,6 @@
       android:paddingEnd="8dp"
       android:paddingRight="8dp"
       android:paddingTop="2dp"
-      android:text="author"
       android:textColor="@color/white"
       android:textSize="12sp"
       app:layout_constraintBottom_toBottomOf="@+id/imageView"

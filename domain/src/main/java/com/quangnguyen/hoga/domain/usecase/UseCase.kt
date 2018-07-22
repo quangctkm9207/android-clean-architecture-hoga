@@ -14,7 +14,7 @@ interface FlowableUseCase<R> {
 /**
  * A use case returns Flowable as a result and needs a parameter.
  */
-interface FlowableUseCaseWithParam<P, R> {
+interface FlowableUseCaseWithParam<in P, R> {
   fun execute(param: P): Flowable<R>
 }
 
@@ -28,7 +28,7 @@ interface SingleUseCase<R> {
 /**
  * A use case returns Single as a result and needs a parameter.
  */
-interface SingleUseCaseWithParam<P, R> {
+interface SingleUseCaseWithParam<in P, R> {
   fun execute(param: P): Single<R>
 }
 
@@ -42,6 +42,6 @@ interface CompletableUseCase {
 /**
  * A use case returns Completable as a result and needs a parameter.
  */
-interface CompletableUseCaseWithParam<P> {
+interface CompletableUseCaseWithParam<in P> {
   fun execute(param: P): Completable
 }

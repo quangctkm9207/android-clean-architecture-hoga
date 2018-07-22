@@ -15,9 +15,9 @@ import com.quangnguyen.hoga.ui.base.BaseRecyclerViewAdapter
 import java.io.File
 
 class ImageAdapter(
-    var images: List<Image>) : BaseRecyclerViewAdapter<ImageAdapter.ImageViewHolder>() {
+    private var images: List<Image>) : BaseRecyclerViewAdapter<ImageAdapter.ImageViewHolder>() {
 
-  lateinit var context: Context
+  private lateinit var context: Context
 
   override fun onCreateViewHolder(parent: ViewGroup,
       viewType: Int): android.support.v7.widget.RecyclerView.ViewHolder {
@@ -66,11 +66,10 @@ class ImageAdapter(
 
   class ImageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-    var image: ImageView
+    var image: ImageView = view.findViewById(R.id.image)
     var authorText: TextView
 
     init {
-      image = view.findViewById(R.id.image)
       authorText = view.findViewById(R.id.text_author)
     }
   }
