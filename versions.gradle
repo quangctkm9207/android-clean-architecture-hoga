@@ -90,7 +90,7 @@ glide.compiler = "com.github.bumptech.glide:compiler:$versions.glide"
 deps.glide = glide
 
 def buildVersion = [:]
-buildVersion.minSdk = 14
+buildVersion.minSdk = 21
 buildVersion.targetSdk = 27
 buildVersion.buildTools = "27.0.3"
 ext.buildVersion = buildVersion
