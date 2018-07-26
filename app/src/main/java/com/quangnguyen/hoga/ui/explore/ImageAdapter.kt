@@ -15,7 +15,7 @@ import com.quangnguyen.hoga.ui.base.BaseRecyclerViewAdapter
 import java.io.File
 
 class ImageAdapter(
-    private var images: List<Image>) : BaseRecyclerViewAdapter<ImageAdapter.ImageViewHolder>() {
+    private var images: MutableList<Image>) : BaseRecyclerViewAdapter<ImageAdapter.ImageViewHolder>() {
 
   private lateinit var context: Context
 
@@ -47,7 +47,13 @@ class ImageAdapter(
   }
 
   fun replaceData(images: List<Image>) {
-    this.images = images
+    this.images.clear()
+    this.images.addAll(images)
+    notifyDataSetChanged()
+  }
+
+  fun addData(newImages: List<Image>) {
+    this.images.addAll(newImages)
     notifyDataSetChanged()
   }
 
@@ -60,17 +66,13 @@ class ImageAdapter(
   }
 
   fun clearData() {
-    this.images = emptyList()
+    this.images.clear()
     notifyDataSetChanged()
   }
 
   class ImageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     var image: ImageView = view.findViewById(R.id.image)
-    var authorText: TextView
-
-    init {
-      authorText = view.findViewById(R.id.text_author)
-    }
+    var authorText: TextView = view.findViewById(R.id.text_author)
   }
 }

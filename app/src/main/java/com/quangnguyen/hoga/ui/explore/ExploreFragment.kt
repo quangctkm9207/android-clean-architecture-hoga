@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.SearchView
 import android.view.LayoutInflater
 import android.view.Menu
@@ -24,6 +25,8 @@ class ExploreFragment : Fragment(), ExploreContract.View {
   private lateinit var presenter: ExploreContract.Presenter
   private lateinit var adapter: ImageAdapter
 
+  private lateinit var searchView: SearchView
+
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
     setHasOptionsMenu(true)
@@ -42,11 +45,12 @@ class ExploreFragment : Fragment(), ExploreContract.View {
 
   private fun initPresenter() {
     presenter = ExplorePresenter(this, Injector.loadTrendingImagesUseCase,
-        Injector.searchImagesUseCase, Injector.schedulerProvider)
+        Injector.loadMoreTrendingImagesUseCase, Injector.searchImagesUseCase,
+        Injector.searchMoreImagesUseCase, Injector.schedulerProvider)
   }
 
   private fun setupViews() {
-    adapter = ImageAdapter(emptyList())
+    adapter = ImageAdapter(ArrayList())
     val layoutManager = GridLayoutManager(activity, 2)
     imageRecyclerView.layoutManager = layoutManager
     imageRecyclerView.adapter = adapter
@@ -56,6 +60,25 @@ class ExploreFragment : Fragment(), ExploreContract.View {
       }
     })
     refreshLayout.setOnRefreshListener { presenter.loadTrendingImages() }
+
+    // Setup paging
+    val visibleThreshold = 1
+    imageRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+      override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+        super.onScrolled(recyclerView, dx, dy)
+
+        val totalItemCount = layoutManager.itemCount
+        val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
+        if (!refreshLayout.isRefreshing && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
+          // Check if it is in 'Search' mode or not
+          if (searchView.query.isNotEmpty()) {
+            presenter.searchMoreImages(searchView.query.toString())
+          } else {
+            presenter.loadMoreTrendingImages()
+          }
+        }
+      }
+    })
   }
 
   override fun onResume() {
@@ -72,7 +95,7 @@ class ExploreFragment : Fragment(), ExploreContract.View {
     if (inflater != null && menu != null) {
       inflater.inflate(R.menu.fragment_explore, menu)
       // Setup search widget in action bar
-      val searchView = menu.findItem(R.id.search).actionView as SearchView
+      searchView = menu.findItem(R.id.search).actionView as SearchView
       setupSearchView(searchView)
     }
   }
@@ -103,6 +126,10 @@ class ExploreFragment : Fragment(), ExploreContract.View {
 
   override fun showImages(images: List<Image>) {
     adapter.replaceData(images)
+  }
+
+  override fun showMoreImages(newImages: List<Image>) {
+    adapter.addData(newImages)
   }
 
   override fun clearImages() {

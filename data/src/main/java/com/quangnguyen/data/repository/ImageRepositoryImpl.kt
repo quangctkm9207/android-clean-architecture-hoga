@@ -20,21 +20,60 @@ class ImageRepositoryImpl(private val imageService: ImageService,
     private val imageMapper: ImageMapper) : ImageRepository {
   private val token = BuildConfig.UNSPLASH_TOKEN
 
+  // Monitor the page number of data loaded from remote source
+  private var trendingPageNumber: Int = 1
+  private var searchPageNumber: Int = 1
+
   override fun loadTrendingImages(): Single<List<Image>> {
-    return imageService.loadTrendingImages(token, ApiConfig.DEFAULT_PAGE,
-        ApiConfig.DEFAULT_PER_PAGE, ApiConfig.DEFAULT_ORDER_BY)
+    // Always load the first page
+    trendingPageNumber = 1
+
+    return loadTrendingImages(trendingPageNumber, ApiConfig.DEFAULT_PER_PAGE,
+        ApiConfig.DEFAULT_ORDER_BY)
+  }
+
+  override fun loadMoreTrendingImages(): Single<List<Image>> {
+    // Load the next page
+    trendingPageNumber++
+
+    return loadTrendingImages(trendingPageNumber, ApiConfig.DEFAULT_PER_PAGE,
+        ApiConfig.DEFAULT_ORDER_BY)
+  }
+
+  private fun loadTrendingImages(pageNumber: Int, numberPerPage: Int,
+      orderBy: String): Single<List<Image>> {
+    return imageService.loadTrendingImages(token, pageNumber, numberPerPage, orderBy)
         .toFlowable()
         .flatMap { Flowable.fromIterable(it) }
         .doOnNext {
           imageDao.insertImage(it)
         }
-        .map { imageMapper.dataToDomain(it) }
+        .map {
+          imageMapper.dataToDomain(it)
+        }
         .toList()
   }
 
   override fun searchImages(keyword: String): Single<List<Image>> {
-    return imageService.searchImages(token, keyword, ApiConfig.DEFAULT_PAGE,
-        ApiConfig.DEFAULT_PER_PAGE, ApiConfig.DEFAULT_ORDER_BY)
+    // Always load the first page
+    searchPageNumber = 1
+
+    return searchImages(keyword, searchPageNumber, ApiConfig.DEFAULT_PER_PAGE,
+        ApiConfig.DEFAULT_ORDER_BY)
+  }
+
+  override fun searchMoreImages(keyword: String): Single<List<Image>> {
+    // Load the next page
+    searchPageNumber++
+
+    return searchImages(keyword, searchPageNumber, ApiConfig.DEFAULT_PER_PAGE,
+        ApiConfig.DEFAULT_ORDER_BY)
+  }
+
+  private fun searchImages(keyword: String, pageNumber: Int, numberPerPage: Int,
+      orderBy: String): Single<List<Image>> {
+    return imageService.searchImages(token, keyword, pageNumber,
+        numberPerPage, orderBy)
         .map { it.results }
         .toFlowable()
         .flatMap { Flowable.fromIterable(it) }

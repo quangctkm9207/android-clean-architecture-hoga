@@ -8,7 +8,11 @@ interface ImageRepository {
 
   fun loadTrendingImages(): Single<List<Image>>
 
+  fun loadMoreTrendingImages(): Single<List<Image>>
+
   fun searchImages(keyword: String): Single<List<Image>>
+
+  fun searchMoreImages(keyword: String): Single<List<Image>>
 
   fun getImage(imageId: String): Single<Image>
 

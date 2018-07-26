@@ -10,6 +10,8 @@ interface ExploreContract {
 
     fun showImages(images: List<Image>)
 
+    fun showMoreImages(newImages: List<Image>)
+
     fun clearImages()
 
     fun showErrorMessage(errorMsg: String)
@@ -25,7 +27,11 @@ interface ExploreContract {
 
     fun loadTrendingImages()
 
+    fun loadMoreTrendingImages()
+
     fun searchImages(keyword: String)
+
+    fun searchMoreImages(keyword: String)
 
     fun loadImageDetail(imageId: String)
   }
