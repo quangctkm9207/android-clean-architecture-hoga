@@ -20,15 +20,34 @@ class ImageRepositoryImpl(private val imageService: ImageService,
     private val imageMapper: ImageMapper) : ImageRepository {
   private val token = BuildConfig.UNSPLASH_TOKEN
 
+  // Monitor the page number of data loaded from remote source
+  private var pageNumber: Int = 1
+
   override fun loadTrendingImages(): Single<List<Image>> {
-    return imageService.loadTrendingImages(token, ApiConfig.DEFAULT_PAGE,
-        ApiConfig.DEFAULT_PER_PAGE, ApiConfig.DEFAULT_ORDER_BY)
+    // Always load the first page
+    pageNumber = 1
+
+    return loadTrendingImages(pageNumber, ApiConfig.DEFAULT_PER_PAGE, ApiConfig.DEFAULT_ORDER_BY)
+  }
+
+  override fun loadMoreTrendingImages(): Single<List<Image>> {
+    // Load the next page
+    pageNumber++
+
+    return loadTrendingImages(pageNumber, ApiConfig.DEFAULT_PER_PAGE, ApiConfig.DEFAULT_ORDER_BY)
+  }
+
+  private fun loadTrendingImages(pageNumber: Int, numberPerPage: Int,
+      orderBy: String): Single<List<Image>> {
+    return imageService.loadTrendingImages(token, pageNumber, numberPerPage, orderBy)
         .toFlowable()
         .flatMap { Flowable.fromIterable(it) }
         .doOnNext {
           imageDao.insertImage(it)
         }
-        .map { imageMapper.dataToDomain(it) }
+        .map {
+          imageMapper.dataToDomain(it)
+        }
         .toList()
   }
 
