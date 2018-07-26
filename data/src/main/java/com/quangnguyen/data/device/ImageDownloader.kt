@@ -26,7 +26,7 @@ class ImageDownloader {
   }
 
   fun download(downloadUrl: String, imageFileName: String): Completable {
-    return Completable.create({
+    return Completable.create {
       val bitmap: Bitmap?
       try {
         val input = URL(downloadUrl).openStream()
@@ -36,7 +36,7 @@ class ImageDownloader {
       } catch (error: IOException) {
         it.onError(error)
       }
-    })
+    }
   }
 
   private fun saveBitmapToFile(bitmap: Bitmap, imageFileName: String) {
