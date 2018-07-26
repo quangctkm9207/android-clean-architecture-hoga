@@ -21,20 +21,23 @@ class ImageRepositoryImpl(private val imageService: ImageService,
   private val token = BuildConfig.UNSPLASH_TOKEN
 
   // Monitor the page number of data loaded from remote source
-  private var pageNumber: Int = 1
+  private var trendingPageNumber: Int = 1
+  private var searchPageNumber: Int = 1
 
   override fun loadTrendingImages(): Single<List<Image>> {
     // Always load the first page
-    pageNumber = 1
+    trendingPageNumber = 1
 
-    return loadTrendingImages(pageNumber, ApiConfig.DEFAULT_PER_PAGE, ApiConfig.DEFAULT_ORDER_BY)
+    return loadTrendingImages(trendingPageNumber, ApiConfig.DEFAULT_PER_PAGE,
+        ApiConfig.DEFAULT_ORDER_BY)
   }
 
   override fun loadMoreTrendingImages(): Single<List<Image>> {
     // Load the next page
-    pageNumber++
+    trendingPageNumber++
 
-    return loadTrendingImages(pageNumber, ApiConfig.DEFAULT_PER_PAGE, ApiConfig.DEFAULT_ORDER_BY)
+    return loadTrendingImages(trendingPageNumber, ApiConfig.DEFAULT_PER_PAGE,
+        ApiConfig.DEFAULT_ORDER_BY)
   }
 
   private fun loadTrendingImages(pageNumber: Int, numberPerPage: Int,
@@ -52,8 +55,25 @@ class ImageRepositoryImpl(private val imageService: ImageService,
   }
 
   override fun searchImages(keyword: String): Single<List<Image>> {
-    return imageService.searchImages(token, keyword, ApiConfig.DEFAULT_PAGE,
-        ApiConfig.DEFAULT_PER_PAGE, ApiConfig.DEFAULT_ORDER_BY)
+    // Always load the first page
+    searchPageNumber = 1
+
+    return searchImages(keyword, searchPageNumber, ApiConfig.DEFAULT_PER_PAGE,
+        ApiConfig.DEFAULT_ORDER_BY)
+  }
+
+  override fun searchMoreImages(keyword: String): Single<List<Image>> {
+    // Load the next page
+    searchPageNumber++
+
+    return searchImages(keyword, searchPageNumber, ApiConfig.DEFAULT_PER_PAGE,
+        ApiConfig.DEFAULT_ORDER_BY)
+  }
+
+  private fun searchImages(keyword: String, pageNumber: Int, numberPerPage: Int,
+      orderBy: String): Single<List<Image>> {
+    return imageService.searchImages(token, keyword, pageNumber,
+        numberPerPage, orderBy)
         .map { it.results }
         .toFlowable()
         .flatMap { Flowable.fromIterable(it) }

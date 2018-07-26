@@ -13,6 +13,7 @@ import com.quangnguyen.hoga.domain.usecase.image.LoadDownloadedImagesUseCase
 import com.quangnguyen.hoga.domain.usecase.image.LoadMoreTrendingImagesUseCase
 import com.quangnguyen.hoga.domain.usecase.image.LoadTrendingImagesUseCase
 import com.quangnguyen.hoga.domain.usecase.image.SearchImagesUseCase
+import com.quangnguyen.hoga.domain.usecase.image.SearchMoreImagesUseCase
 import com.quangnguyen.hoga.domain.usecase.image.SetWallpaperUseCase
 import com.quangnguyen.hoga.util.SchedulerProvider
 
@@ -22,6 +23,7 @@ class Injector {
     lateinit var loadTrendingImagesUseCase: LoadTrendingImagesUseCase
     lateinit var loadMoreTrendingImagesUseCase: LoadMoreTrendingImagesUseCase
     lateinit var searchImagesUseCase: SearchImagesUseCase
+    lateinit var searchMoreImagesUseCase: SearchMoreImagesUseCase
     lateinit var getImageUseCase: GetImageUseCase
     lateinit var downloadImageUseCase: DownloadImageUseCase
     lateinit var loadDownloadedImagesUseCase: LoadDownloadedImagesUseCase
@@ -41,6 +43,7 @@ class Injector {
       loadTrendingImagesUseCase = LoadTrendingImagesUseCase(imageRepository)
       loadMoreTrendingImagesUseCase = LoadMoreTrendingImagesUseCase(imageRepository)
       searchImagesUseCase = SearchImagesUseCase(imageRepository)
+      searchMoreImagesUseCase = SearchMoreImagesUseCase(imageRepository)
       getImageUseCase = GetImageUseCase(imageRepository)
       downloadImageUseCase = DownloadImageUseCase(imageRepository)
       loadDownloadedImagesUseCase = LoadDownloadedImagesUseCase(imageRepository)

@@ -25,6 +25,8 @@ class ExploreFragment : Fragment(), ExploreContract.View {
   private lateinit var presenter: ExploreContract.Presenter
   private lateinit var adapter: ImageAdapter
 
+  private lateinit var searchView: SearchView
+
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
     setHasOptionsMenu(true)
@@ -43,8 +45,8 @@ class ExploreFragment : Fragment(), ExploreContract.View {
 
   private fun initPresenter() {
     presenter = ExplorePresenter(this, Injector.loadTrendingImagesUseCase,
-        Injector.loadMoreTrendingImagesUseCase,
-        Injector.searchImagesUseCase, Injector.schedulerProvider)
+        Injector.loadMoreTrendingImagesUseCase, Injector.searchImagesUseCase,
+        Injector.searchMoreImagesUseCase, Injector.schedulerProvider)
   }
 
   private fun setupViews() {
@@ -68,7 +70,12 @@ class ExploreFragment : Fragment(), ExploreContract.View {
         val totalItemCount = layoutManager.itemCount
         val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
         if (!refreshLayout.isRefreshing && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
-          presenter.loadMoreTrendingImages()
+          // Check if it is in 'Search' mode or not
+          if (searchView.query.isNotEmpty()) {
+            presenter.searchMoreImages(searchView.query.toString())
+          } else {
+            presenter.loadMoreTrendingImages()
+          }
         }
       }
     })
@@ -88,7 +95,7 @@ class ExploreFragment : Fragment(), ExploreContract.View {
     if (inflater != null && menu != null) {
       inflater.inflate(R.menu.fragment_explore, menu)
       // Setup search widget in action bar
-      val searchView = menu.findItem(R.id.search).actionView as SearchView
+      searchView = menu.findItem(R.id.search).actionView as SearchView
       setupSearchView(searchView)
     }
   }

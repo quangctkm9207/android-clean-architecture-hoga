@@ -12,6 +12,8 @@ interface ImageRepository {
 
   fun searchImages(keyword: String): Single<List<Image>>
 
+  fun searchMoreImages(keyword: String): Single<List<Image>>
+
   fun getImage(imageId: String): Single<Image>
 
   fun loadDownloadedImages(): Single<List<Image>>

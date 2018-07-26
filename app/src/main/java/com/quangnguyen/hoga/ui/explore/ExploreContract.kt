@@ -31,6 +31,8 @@ interface ExploreContract {
 
     fun searchImages(keyword: String)
 
+    fun searchMoreImages(keyword: String)
+
     fun loadImageDetail(imageId: String)
   }
 }
