@@ -10,6 +10,7 @@ import com.quangnguyen.data.repository.ImageRepositoryImpl
 import com.quangnguyen.hoga.domain.usecase.image.DownloadImageUseCase
 import com.quangnguyen.hoga.domain.usecase.image.GetImageUseCase
 import com.quangnguyen.hoga.domain.usecase.image.LoadDownloadedImagesUseCase
+import com.quangnguyen.hoga.domain.usecase.image.LoadMoreTrendingImagesUseCase
 import com.quangnguyen.hoga.domain.usecase.image.LoadTrendingImagesUseCase
 import com.quangnguyen.hoga.domain.usecase.image.SearchImagesUseCase
 import com.quangnguyen.hoga.domain.usecase.image.SetWallpaperUseCase
@@ -19,6 +20,7 @@ class Injector {
 
   companion object {
     lateinit var loadTrendingImagesUseCase: LoadTrendingImagesUseCase
+    lateinit var loadMoreTrendingImagesUseCase: LoadMoreTrendingImagesUseCase
     lateinit var searchImagesUseCase: SearchImagesUseCase
     lateinit var getImageUseCase: GetImageUseCase
     lateinit var downloadImageUseCase: DownloadImageUseCase
@@ -37,6 +39,7 @@ class Injector {
           wallpaperHelper,
           imageMapper)
       loadTrendingImagesUseCase = LoadTrendingImagesUseCase(imageRepository)
+      loadMoreTrendingImagesUseCase = LoadMoreTrendingImagesUseCase(imageRepository)
       searchImagesUseCase = SearchImagesUseCase(imageRepository)
       getImageUseCase = GetImageUseCase(imageRepository)
       downloadImageUseCase = DownloadImageUseCase(imageRepository)

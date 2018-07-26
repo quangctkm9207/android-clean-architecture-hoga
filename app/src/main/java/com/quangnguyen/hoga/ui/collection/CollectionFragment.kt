@@ -38,7 +38,7 @@ class CollectionFragment : Fragment(), CollectionContract.View {
   }
 
   private fun setupViews() {
-    adapter = ImageAdapter(emptyList())
+    adapter = ImageAdapter(ArrayList())
     val layoutManager = GridLayoutManager(activity, 2)
     imageRecyclerView.layoutManager = layoutManager
     imageRecyclerView.adapter = adapter
