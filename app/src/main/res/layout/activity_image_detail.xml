@@ -5,6 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
+  <include
+      layout="@layout/custom_toolbar"
+      android:id="@+id/customToolbar"
+      />
 
   <ProgressBar
       android:id="@+id/progressBar"
@@ -13,7 +17,7 @@
       android:background="@color/grey"
       android:indeterminate="true"
       android:visibility="gone"
-      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/customToolbar"
       style="?android:attr/progressBarStyleHorizontal"
       />
 
@@ -29,7 +33,7 @@
       />
 
   <com.github.chrisbanes.photoview.PhotoView
-    android:id="@+id/imageView"
+      android:id="@+id/imageView"
       android:layout_width="0dp"
       android:layout_height="0dp"
       android:background="@color/black"
@@ -45,10 +49,10 @@
       android:layout_height="wrap_content"
       android:background="@color/transparent_black"
       android:paddingBottom="2dp"
-      android:paddingLeft="8dp"
-      android:paddingStart="8dp"
       android:paddingEnd="8dp"
+      android:paddingLeft="8dp"
       android:paddingRight="8dp"
+      android:paddingStart="8dp"
       android:paddingTop="2dp"
       android:textColor="@color/white"
       android:textSize="12sp"

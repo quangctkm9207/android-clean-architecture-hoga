@@ -35,6 +35,8 @@ class ImageDetailActivity : AppCompatActivity(), ImageDetailContract.View {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_image_detail)
+
+    setSupportActionBar(findViewById(R.id.toolbar))
   }
 
   override fun onStart() {

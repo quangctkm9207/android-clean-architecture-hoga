@@ -7,6 +7,10 @@
     android:layout_height="match_parent"
     tools:context="com.quangnguyen.hoga.ui.main.MainActivity"
     >
+  <include
+      layout="@layout/custom_toolbar"
+      android:id="@+id/customToolbar"
+      />
 
   <FrameLayout
       android:id="@+id/container"
@@ -16,7 +20,7 @@
       app:layout_constraintBottom_toTopOf="@+id/navigationView"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/customToolbar"
       />
 
   <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx

@@ -20,6 +20,8 @@ class MainActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     setContentView(layout.activity_main)
 
+    setSupportActionBar(findViewById(R.id.toolbar))
+
     setupBottomNavigation()
     title = getString(R.string.explore)
 
