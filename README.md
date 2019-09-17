@@ -1,7 +1,7 @@
 # Hoga
 A mobile image box allows you to search and download free and beautiful pictures which you definitely love. 
 
-`Hoga` = `Hộp`(in Vietnamese) + `Gazo`-画像 (in Japanese)
+`Hoga` = `Hộp`('Box' in Vietnamese) + `Gazo`-画像 ('Image' in Japanese)
 
 <img src="art/hoga_shot_1.png" height="500"/> <img src="art/hoga_shot_2.png" height="500"/> <img src="art/hoga_shot_3.png" height="500"/>
 
