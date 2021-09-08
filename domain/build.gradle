@@ -16,7 +16,8 @@ dependencies {
   // RxJava
   implementation deps.rxJava
   // Unit Test
-  implementation deps.junit
-  implementation deps.mockito.core
-  implementation deps.mockito.kotlin
+  testImplementation deps.junit
+  testImplementation deps.mockito.core
+  testImplementation deps.mockito.kotlin
+  testImplementation deps.hamcrest
 }

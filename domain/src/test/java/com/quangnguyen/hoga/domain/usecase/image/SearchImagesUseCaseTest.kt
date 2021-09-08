@@ -1,9 +1,9 @@
 package com.quangnguyen.hoga.domain.usecase.image
 
-import com.nhaarman.mockito_kotlin.given
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.then
-import com.nhaarman.mockito_kotlin.times
+import org.mockito.kotlin.given
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.then
+import org.mockito.kotlin.times
 import com.quangnguyen.hoga.domain.entity.Image
 import com.quangnguyen.hoga.domain.repository.ImageRepository
 import io.reactivex.rxjava3.core.Single
