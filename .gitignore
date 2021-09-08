@@ -3,7 +3,6 @@
 .DS_Store
 .idea/
 *iml
-gradle.properties
 bin/
 gen/
 out/
