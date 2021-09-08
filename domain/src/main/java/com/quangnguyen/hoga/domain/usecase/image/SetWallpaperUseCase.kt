@@ -3,8 +3,7 @@ package com.quangnguyen.hoga.domain.usecase.image
 import com.quangnguyen.hoga.domain.entity.Image
 import com.quangnguyen.hoga.domain.repository.ImageRepository
 import com.quangnguyen.hoga.domain.usecase.CompletableUseCaseWithParam
-import io.reactivex.Completable
-
+import io.reactivex.rxjava3.core.Completable
 
 class SetWallpaperUseCase(
     private val repository: ImageRepository) : CompletableUseCaseWithParam<Image> {

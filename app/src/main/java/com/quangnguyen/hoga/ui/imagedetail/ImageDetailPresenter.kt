@@ -6,7 +6,7 @@ import com.quangnguyen.hoga.domain.entity.Image
 import com.quangnguyen.hoga.domain.usecase.image.SetWallpaperUseCase
 import com.quangnguyen.hoga.ui.imagedetail.ImageDetailContract.Presenter
 import com.quangnguyen.hoga.util.SchedulerProvider
-import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 
 class ImageDetailPresenter(private val view: ImageDetailContract.View,
     private val getImageUseCase: GetImageUseCase,

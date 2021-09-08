@@ -1,5 +1,6 @@
 package com.quangnguyen.data.repository
 
+import androidx.core.os.OperationCanceledException
 import com.quangnguyen.data.BuildConfig
 import com.quangnguyen.data.api.ApiConfig
 import com.quangnguyen.data.api.ImageService
@@ -9,9 +10,9 @@ import com.quangnguyen.data.device.WallpaperHelper
 import com.quangnguyen.data.mapper.ImageMapper
 import com.quangnguyen.hoga.domain.entity.Image
 import com.quangnguyen.hoga.domain.repository.ImageRepository
-import io.reactivex.Completable
-import io.reactivex.Flowable
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.core.Single
 
 class ImageRepositoryImpl(private val imageService: ImageService,
     private val imageDao: ImageDao,
@@ -92,17 +93,18 @@ class ImageRepositoryImpl(private val imageService: ImageService,
   override fun downloadImage(image: Image): Completable {
     return if (image.downloadedFilePath != null) {
       Completable.error(
-          android.support.v4.os.OperationCanceledException("Image has been downloaded already."))
+          OperationCanceledException("Image has been downloaded already.")
+      )
     } else {
       val imageFileName = "${image.id}_${image.authorName.replace(" ", "")}"
       imageDownloader.download(image.downloadUrl, imageFileName)
           .toSingle { imageDao.getImage(image.id) }
-          .doOnSuccess {
-            val imageModel = it.blockingGet()
-            imageModel.downloadedFilePath = imageDownloader.getImageFilePath(imageFileName)
-            imageDao.updateImage(imageModel)
-          }
-          .toCompletable()
+          .flatMapCompletable {
+          val imageModel = it.blockingGet()
+          imageModel.downloadedFilePath = imageDownloader.getImageFilePath(imageFileName)
+          imageDao.updateImage(imageModel)
+          Completable.complete()
+        }
     }
   }
 

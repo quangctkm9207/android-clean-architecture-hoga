@@ -1,9 +1,9 @@
 package com.quangnguyen.data.model
 
-import android.arch.persistence.room.ColumnInfo
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.PrimaryKey
-import android.arch.persistence.room.TypeConverters
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
 import com.google.gson.annotations.Expose
 import com.quangnguyen.data.database.DatabaseConfig
 import com.quangnguyen.data.database.ImageDataConverter

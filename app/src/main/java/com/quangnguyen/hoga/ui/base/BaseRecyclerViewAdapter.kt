@@ -1,7 +1,6 @@
 package com.quangnguyen.hoga.ui.base
 
-import android.support.v7.widget.RecyclerView
-
+import androidx.recyclerview.widget.RecyclerView
 
 /**
  * A general RecyclerViewAdapter which supports OnItemClickListener and OnItemLongClickListener.

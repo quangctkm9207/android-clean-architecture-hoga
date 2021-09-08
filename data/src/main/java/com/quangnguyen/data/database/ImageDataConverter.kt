@@ -1,6 +1,6 @@
 package com.quangnguyen.data.database
 
-import android.arch.persistence.room.TypeConverter
+import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.quangnguyen.data.model.ImageUrlsList
 import com.quangnguyen.data.model.User

@@ -3,7 +3,7 @@ package com.quangnguyen.data.device
 import android.annotation.SuppressLint
 import android.app.WallpaperManager
 import android.content.Context
-import io.reactivex.Completable
+import io.reactivex.rxjava3.core.Completable
 import java.net.URL
 
 class WallpaperHelper(context: Context) {

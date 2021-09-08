@@ -6,8 +6,8 @@ import com.nhaarman.mockito_kotlin.then
 import com.nhaarman.mockito_kotlin.times
 import com.quangnguyen.hoga.domain.entity.Image
 import com.quangnguyen.hoga.domain.repository.ImageRepository
-import io.reactivex.Single
-import io.reactivex.observers.TestObserver
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.observers.TestObserver
 import org.junit.Before
 import org.junit.Test
 

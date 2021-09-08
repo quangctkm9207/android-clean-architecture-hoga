@@ -1,8 +1,8 @@
 package com.quangnguyen.hoga.ui.main
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.quangnguyen.hoga.R
 import com.quangnguyen.hoga.R.layout
 import com.quangnguyen.hoga.ui.collection.CollectionFragment

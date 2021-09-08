@@ -1,10 +1,10 @@
 package com.quangnguyen.hoga.util
 
 import android.Manifest
-import android.support.v4.app.ActivityCompat
 import android.content.pm.PackageManager
 import android.os.Build
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 
 fun AppCompatActivity.isStoragePermissionGranted(): Boolean {
   return if (Build.VERSION.SDK_INT >= 23) {

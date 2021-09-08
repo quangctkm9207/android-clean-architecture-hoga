@@ -2,8 +2,7 @@ package com.quangnguyen.hoga.ui.collection
 
 import com.quangnguyen.hoga.domain.usecase.image.LoadDownloadedImagesUseCase
 import com.quangnguyen.hoga.util.SchedulerProvider
-import io.reactivex.disposables.CompositeDisposable
-
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 
 class CollectionPresenter(private val view: CollectionContract.View,
     private val loadDownloadedImagesUseCase: LoadDownloadedImagesUseCase,

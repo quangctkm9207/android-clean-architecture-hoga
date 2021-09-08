@@ -2,10 +2,6 @@ package com.quangnguyen.hoga.ui.explore
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.SearchView
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -13,6 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.quangnguyen.hoga.R
 import com.quangnguyen.hoga.di.Injector
 import com.quangnguyen.hoga.domain.entity.Image
@@ -32,8 +32,11 @@ class ExploreFragment : Fragment(), ExploreContract.View {
     setHasOptionsMenu(true)
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-      savedInstanceState: Bundle?): View? {
+  override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
     initPresenter()
     return inflater.inflate(R.layout.fragment_images, container, false)
   }
@@ -44,9 +47,11 @@ class ExploreFragment : Fragment(), ExploreContract.View {
   }
 
   private fun initPresenter() {
-    presenter = ExplorePresenter(this, Injector.loadTrendingImagesUseCase,
-        Injector.loadMoreTrendingImagesUseCase, Injector.searchImagesUseCase,
-        Injector.searchMoreImagesUseCase, Injector.schedulerProvider)
+    presenter = ExplorePresenter(
+      this, Injector.loadTrendingImagesUseCase,
+      Injector.loadMoreTrendingImagesUseCase, Injector.searchImagesUseCase,
+      Injector.searchMoreImagesUseCase, Injector.schedulerProvider
+    )
   }
 
   private fun setupViews() {
@@ -55,7 +60,10 @@ class ExploreFragment : Fragment(), ExploreContract.View {
     imageRecyclerView.layoutManager = layoutManager
     imageRecyclerView.adapter = adapter
     adapter.setOnItemClickListener(object : RecyclerViewListener.OnItemClickListener {
-      override fun onItemClick(view: View, position: Int) {
+      override fun onItemClick(
+        view: View,
+        position: Int
+      ) {
         presenter.loadImageDetail(adapter.getItem(position).id)
       }
     })
@@ -64,7 +72,11 @@ class ExploreFragment : Fragment(), ExploreContract.View {
     // Setup paging
     val visibleThreshold = 1
     imageRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-      override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+      override fun onScrolled(
+        recyclerView: RecyclerView,
+        dx: Int,
+        dy: Int
+      ) {
         super.onScrolled(recyclerView, dx, dy)
 
         val totalItemCount = layoutManager.itemCount
@@ -91,13 +103,14 @@ class ExploreFragment : Fragment(), ExploreContract.View {
     presenter.detach()
   }
 
-  override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-    if (inflater != null && menu != null) {
-      inflater.inflate(R.menu.fragment_explore, menu)
-      // Setup search widget in action bar
-      searchView = menu.findItem(R.id.search).actionView as SearchView
-      setupSearchView(searchView)
-    }
+  override fun onCreateOptionsMenu(
+    menu: Menu,
+    inflater: MenuInflater
+  ) {
+    inflater.inflate(R.menu.fragment_explore, menu)
+    // Setup search widget in action bar
+    searchView = menu.findItem(R.id.search).actionView as SearchView
+    setupSearchView(searchView)
   }
 
   private fun setupSearchView(searchView: SearchView) {

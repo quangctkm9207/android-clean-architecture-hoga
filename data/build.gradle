@@ -33,8 +33,10 @@ dependencies {
   implementation project(":domain")
 
   implementation deps.kotlin.stdlib
+  implementation deps.kotlin.reflect
 
-  implementation deps.support.appCompat
+  implementation deps.androidX.core
+  implementation deps.androidX.appCompat
 
   api deps.room.runtime
   kapt deps.room.compiler

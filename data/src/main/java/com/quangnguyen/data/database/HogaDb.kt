@@ -1,7 +1,7 @@
 package com.quangnguyen.data.database
 
-import android.arch.persistence.room.Database
-import android.arch.persistence.room.RoomDatabase
+import androidx.room.Database
+import androidx.room.RoomDatabase
 import com.quangnguyen.data.model.ImageModel
 
 @Database(entities = [(ImageModel::class)], version = 1)

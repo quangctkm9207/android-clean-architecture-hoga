@@ -3,11 +3,11 @@ package com.quangnguyen.hoga.ui.imagedetail
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -58,7 +58,9 @@ class ImageDetailActivity : AppCompatActivity(), ImageDetailContract.View {
 
   private fun loadImageDetail() {
     val imageId = intent.getStringExtra(EXTRA_IMAGE_ID)
-    presenter.loadImage(imageId)
+    if (imageId != null) {
+      presenter.loadImage(imageId)
+    }
   }
 
   override fun onPause() {
@@ -71,8 +73,7 @@ class ImageDetailActivity : AppCompatActivity(), ImageDetailContract.View {
     return true
   }
 
-  override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-    if (item == null) return false
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
     when (item.itemId) {
       R.id.download -> {
         if (isStoragePermissionGranted()) {

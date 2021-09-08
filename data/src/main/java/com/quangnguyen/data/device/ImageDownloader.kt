@@ -3,7 +3,7 @@ package com.quangnguyen.data.device
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Environment
-import io.reactivex.Completable
+import io.reactivex.rxjava3.core.Completable
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream

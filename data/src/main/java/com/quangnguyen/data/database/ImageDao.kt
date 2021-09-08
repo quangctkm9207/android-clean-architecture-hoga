@@ -1,12 +1,12 @@
 package com.quangnguyen.data.database
 
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Insert
-import android.arch.persistence.room.OnConflictStrategy
-import android.arch.persistence.room.Query
-import android.arch.persistence.room.Update
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Update
 import com.quangnguyen.data.model.ImageModel
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 
 @Dao
 interface ImageDao {

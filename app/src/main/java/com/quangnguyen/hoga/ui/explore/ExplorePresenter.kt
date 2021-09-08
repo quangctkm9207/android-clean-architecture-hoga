@@ -6,7 +6,7 @@ import com.quangnguyen.hoga.domain.usecase.image.LoadTrendingImagesUseCase
 import com.quangnguyen.hoga.domain.usecase.image.SearchImagesUseCase
 import com.quangnguyen.hoga.domain.usecase.image.SearchMoreImagesUseCase
 import com.quangnguyen.hoga.util.SchedulerProvider
-import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 
 class ExplorePresenter(private val view: ExploreContract.View,
     private val loadTrendingImagesUseCase: LoadTrendingImagesUseCase,

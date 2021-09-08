@@ -3,7 +3,7 @@ package com.quangnguyen.hoga.domain.usecase.image
 import com.quangnguyen.hoga.domain.entity.Image
 import com.quangnguyen.hoga.domain.repository.ImageRepository
 import com.quangnguyen.hoga.domain.usecase.SingleUseCaseWithParam
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 
 class SearchMoreImagesUseCase(
     private val imageRepository: ImageRepository) : SingleUseCaseWithParam<String, List<Image>> {
