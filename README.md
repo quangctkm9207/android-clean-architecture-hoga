@@ -1,4 +1,6 @@
 # Hoga
+[![Build Status](https://app.bitrise.io/app/3f9c2569792e3061/status.svg?token=Gc3Zh5UmAS6hzgI9W6bijg&branch=master)](https://app.bitrise.io/app/3f9c2569792e3061)
+
 A mobile image box allows you to search and download free and beautiful pictures which you definitely love. 
 
 `Hoga` = `Hộp`('Box' in Vietnamese) + `Gazo`-画像 ('Image' in Japanese)
@@ -33,6 +35,25 @@ Thanks to Unsplash, this project uses their crafted clean API to fetch beautiful
 unsplashToken=Client-ID ***************
 ```  
 - Finally, here you go. Let's run.
+
+**For CI/CD:** It is necessary to add a mockup 'local.properties' file.
+For Bitrise, add the following script into the "Do anything with Script step".
+```bash
+# Add template local.properties file
+echo 'Generating local.properties ...'
+
+cat > "./local.properties" <<- FILE_CONTENT
+unsplashToken=Client-ID xxxxSAMPLExxxx
+FILE_CONTENT"
+```
+
+Besides, Bitrise default Java version is Java 8, but the app needs Java 11 to run. So, it should be setup in the same step.
+```bash
+# Install and use java 11
+sudo update-alternatives --set javac /usr/lib/jvm/java-11-openjdk-amd64/bin/javac
+sudo update-alternatives --set java /usr/lib/jvm/java-11-openjdk-amd64/bin/java
+export JAVA_HOME='/usr/lib/jvm/java-11-openjdk-amd64'
+```
 
 ## License
 This project is available under the MIT license. See the LICENSE file for more info.
